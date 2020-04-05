@@ -1,0 +1,211 @@
+<!DOCTYPE HTML>
+<html>
+	<head><meta charset="utf-8"><title>Demo</title>
+		<link rel="stylesheet" type="text/css" href="css/my_soundboard.css">
+		<script src="vendors/howler.core.min.js"></script>  <script src="./vendors/input-knobs.js"></script>
+		<script>window.inputKnobsOptions={}///glob</script>
+	</head>
+	<body>
+		<button  onclick="player.prev(order)" >prev</button>
+		<button  onclick="player.statu(order)" >pause/play</button>
+		<button  onclick="player.next(order)" >next</button>
+		<button  onclick="player.stop(order)" >stop</button>
+		<p id="list_index"></p>
+		<div id="mySoundBoard" class="shade"></div>
+		<div id="mymixerBoard" class="shade">
+		<textarea id="log1" cols="15" rows="2" style="
+				margin-right: 14px;
+				margin-top: 11px;
+				float: right;
+				resize: none;
+				background-color: aqua;
+				border-color: gray;
+				border-style: inset;
+				border-width: 5px;
+				border-radius: 6px;
+				">turn sound on</textarea>
+	<input type="range" class="input-slider"
+		data-width="120" data-height="80" data-sprites="8" data-src="./img/knobs/meter_gold9.png"/>
+
+		<!-- <button onclick="downloadCoin();setTimeout(playCoinDropJS, 3000);">play sound JS-download</button> -->
+		<input type="checkbox" id="pinkponk" class="input-switch mixers"
+			onchange="addText(log1,state('Turned',this.checked));mutePage();"
+			data-width="60" data-height="40" data-src="./img/knobs/pinkponk-ON-OFF.png"/>
+	<input type="range" class="input-knob"
+		data-sprites="100" data-diameter="60" data-src="./img/knobs/knob_Silhouettes_100.png"/>
+		<input id='rate' type="range" class="input-knob"
+		 data-sprites="100" data-width="30" data-height="100" data-src="./img/knobs/bender100.png"/>
+		<input id='octave' type="range" class="input-knob"
+		 data-sprites="100" data-width="30" data-height="100" data-src="./img/knobs/bender100.png"/>
+	<input type="range" class="input-slider"
+		data-width="40" data-height="100" data-sprites="63" data-src="./img/knobs/slider_mixer.png"/>
+	<input type="range" class="input-slider"
+		data-width="40" data-height="100" data-sprites="200" data-src="./img/knobs/slider_Fader_red.png"/>
+
+	<input type="range" class="input-knob" min="-10" max="10" step="0.1"
+		data-sprites="100" data-diameter="20" data-src="./img/knobs/KNB_metal_yellow_L.png"/>
+	<input type="range" class="input-knob" min="-10" max="10" step="0.1"
+		oninput="addText(log1,'\'input\' this.value='+this.value+'\n')"
+		onchange="addText(log1,'\'change\' this.value='+this.value+'\n')"
+		data-sprites="100" data-diameter="60" data-src="./img/knobs/KNB_metal_silver.png"/>
+  <input type="range" class="input-knob"
+		data-sprites="126" data-diameter="60" data-src="./img/knobs/knob_filter.png" />
+
+	<input type="range" class="input-slider"
+		data-width="150" data-height="30" data-sprites="50" data-src="./img/knobs/slider3.png"/>
+
+		</div>
+		<script type="text/javascript"> // howler
+			var drums='./Audio/drums/';
+			var assets='./Audio/assets/scary/';
+			var mp3='./Audio/mp3/';
+			var sound_Collection=[ // Creates an object that is passed in to a music file
+				{src:mp3+'1.mp3'														,title:'female'			,image:assets+'female.png',},			
+				{src:mp3+'3.mp3'														,title:'piano'			,image:assets+'piano.png',},			
+				{src:assets+'01_2-bass_edition.wav'					,title:'bass'				,image:assets+'piano.png',},			
+				{src:assets+'breath.wav'										,title:'lung1'			,image:assets+'piano.png',},			
+				{src:assets+'breath_2.wav'									,title:'lung1'			,image:assets+'lungs.png',},			
+				{src:assets+'breath_3.wav'									,title:'lung1'			,image:assets+'lungs.png',},			
+				{src:assets+'breath_4.wav'									,title:'lung1'			,image:assets+'lungs.png',},			
+				{src:assets+'breath_5.wav'									,title:'lung1'			,image:assets+'lungs.png',},			
+				{src:assets+'breath_6.wav'									,title:'lung1'			,image:assets+'lungs.png',},			
+				{src:assets+'creaky-door.wav'								,title:'door'				,image:assets+'door.png',},			
+				{src:assets+'creaky-door_open.wav'					,title:'dooropen'		,image:assets+'door.png',},			
+				{src:assets+'creepy-knocking-noise.wav'			,title:'knock'			,image:assets+'door.png',},			
+				{src:assets+'creepy-knocking-noise_2.wav'		,title:'knock'			,image:assets+'door.png',},			
+				{src:assets+'creepy-knocking-noise_3.wav'		,title:'knock'			,image:assets+'door.png',},			
+				{src:assets+'creepy-knocking-noise_4.wav'		,title:'knock'			,image:assets+'door.png',},			
+				{src:assets+'crickets.wav'									,title:'crickets'		,image:assets+'smiley.gif',},			
+				{src:assets+'deep-breath.wav'								,title:'deep'				,image:assets+'lungs.png',},			
+				{src:assets+'floorboard-creak.wav'					,title:'creak'			,image:assets+'door.png',},			
+				{src:assets+'laughing.wav'									,title:'laughing'		,image:assets+'lips.png',},			
+				{src:assets+'spider-call.wav'								,title:'spider'			,image:assets+'web.png',},			
+				{src:assets+'spider-crunch.wav'							,title:'web'				,image:assets+'web.png',},			
+				{src:assets+'wolf.wav'											,title:'wolf'				,image:assets+'wolf.png',},			
+				{src:'./Audio/C2right.mp3'									,title:'bell'				,image:assets+'bell.png',},			
+			];
+			var Controller;
+			var playGroup=function(list){ this.list=list;	this.index=0;	this.listLen=list.length;} // Create a play group
+			var order=0; var totalSoundDuration =[0];
+			//
+			playGroup.prototype={
+					play:function(n){	var self=this; Controller=this.list[n]; 
+						if(!Controller.howl){//Determines whether the object is created
+							//
+							Controller.howl=new Howl({ // Creating Howl objects
+								src:		Controller.src,
+								html5:	true, ///This should be used for large audio files so that you don't have to wait for the full file to be downloaded and decoded before playing.
+								preload:true, //Automatically begin downloading the audio file when the Howl is defined.
+								volume: 1,
+								onload: function() {this.fade(0,1,4000,this.play(n));
+									totalSoundDuration[n] = this.duration();console.log('totalSoundDuration'+totalSoundDuration[n]);//alert('fu'+totalSoundDuration[n]);
+									document.getElementById('list_index').innerHTML='sound:'+order+'Duration:'+totalSoundDuration[n];
+								},
+								onplay: function(getSoundId) {
+									document.getElementById('list_index').innerHTML+='>>'+this.seek(); /*sound playing */ 
+								},
+								onend: 	function() { /*sound play finished */}
+							});console.log('Controller'+Controller.howl.src);
+						}
+						Controller.howl.play()
+						///Controller.howl.on('end',function(){ self.next() })//Add a callback event,Used to play the next music automatically
+					},
+					statu:function(n){	if(n)this.index=n;
+						var Controller=this.list[n];
+						if(!Controller.howl){ this.play(n);}//player.fade(0,1,4000,this.play(n));
+						else{
+							if(Controller.howl.playing()){ 
+								Controller.howl.rate(0.6); Controller.howl.fade(0.60,0.0,2000);
+								setTimeout(function(){Controller.howl.pause();},2000);
+							}
+							else{  Controller.howl.fade(0.0, 0.60, 3000).rate(1).play(); } 
+						}//Determine music playback statu
+					},
+					next:function(n){ 
+						this.stopLast(n);
+						if(++ order >= this.listLen){ order=0 }//Index add one
+						this.play(order)//prevIndex -> this.play() Music used to stop the current play
+					},
+					prev:function(n){ 
+						this.stopLast(n);
+						if(-- order < 0){ order=this.listLen - 1 }
+						this.play(order)
+					},
+					stopLast:function(n){
+						if(n !=undefined){ var prevController=this.list[n]                //Stop playing the prev song
+								if(prevController.howl){ prevController.howl.off('end'); prevController.howl.stop();}//Remove event listener that you've set.
+						}
+					},
+					stop:function(n){if(n)order=this.index=n; Controller.howl.stop();}
+			}
+			
+			/// PREPAIRE SOUND BOARD ON UL //////////////////////
+			
+			function flash(x) {x.classList.toggle("flash");	
+					var t=100;console.log('flshthis=',x);
+					var delay=setTimeout(function(){player.statu(x.id);},t);
+					x.onmouseout=function(){clearTimeout(delay); togle_css(x);};
+			}
+			function togle_css(x) { setTimeout(function(){x.classList.toggle("flash");},1000);}
+			
+			//console.log('ddd=',sound_Collection);
+			for(let i=0;i<sound_Collection.length;i++) {
+				if((i+1)%8 ==1) {var zul = document.createElement('ul'); document.getElementById('mySoundBoard').appendChild(zul);}
+				var zli = document.createElement('li');
+						zli.id=i+"";
+						zli.style='background: url("'+sound_Collection[i].image+'"); background-size: cover; ';
+						zli.onclick=function() {player.stop(i);}
+						zli.onmouseover=function() {flash(this);}
+						zli.innerHTML = sound_Collection[i].title;
+				zul.appendChild(zli);
+				//console.log('image=',sound_Collection[i].image);
+			};
+			/// START AUDIO REQUIRES MANUAL CLICK ////////////////
+			var player=new playGroup(sound_Collection)
+			player.play(0)//  play frist music
+			
+		</script>
+
+		<script>// gists
+			function addText(el,txt){	txt=el.value+txt;
+				let rows=txt.split("\n");
+				if(rows.length>el.rows)rows.shift();
+				el.value=rows.join("\n");
+			}
+			function state(lbl,wtf){
+				if(wtf) return '\n'+lbl+': ok'; else return '\n'+lbl+': off';
+			}
+			function downloadCoin() {	var xhr = new XMLHttpRequest();
+				xhr.open('GET', 'http://www.w3schools.com/html/horse.mp3', true);
+        xhr.withCredentials = true
+				xhr.responseType = 'blob';
+				xhr.onload = function(e) {
+					if (this.status == 200) {
+						var blob = new Blob([this.response], { type: 'audio/mp3' });
+						var reader = new window.FileReader();
+						reader.readAsDataURL(blob);
+						reader.onloadend = function() {
+							var coinB64 = reader.result;
+							var myStorage = localStorage.setItem('coin_base64', coinB64)
+						}
+					}
+				};
+				xhr.send();
+			}
+			function playCoinDropJS(){
+					var coinB64 = localStorage.getItem("coin_base64");
+					var snd = new Audio(coinB64); 
+					snd.play();
+			}
+			// Mute a singular HTML5 element
+			function muteMe(elem) {
+				if(document.getElementById('pinkponk').checked) elem.pause();
+				else if(elem.muted)elem.play();
+			}
+			// Try to mute all video and audio elements on the page
+			function mutePage(x) { var elems = document.querySelectorAll("video, audio");
+					[].forEach.call(elems, function(elem) { muteMe(elem); });
+			}
+		</script>
+	</body>
+</html>

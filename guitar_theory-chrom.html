@@ -1,0 +1,308 @@
+<!DOCTYPE html> 
+<html lang="en">
+<head><meta charset="utf-8"><title>Fretboard</title>
+	<!-- svg fret -->
+		<link rel="stylesheet" type="text/css" href="css/guitar.css">
+		<script src="vendors/d3.v3.min.js" ></script>
+		<script src="js/myFretboard_chrom.js"></script>
+	<!-- Diagram -->
+		<script src="js/_ChordDiagram.js"></script>
+	<!-- audio -->
+		<script src="vendors/howler.v1.1.26.min.js"></script>
+		<script src="js/_howler_playerv1.js"></script>
+</head>
+<body onload="myFredBoard();">
+	<div id="content">
+		<div style="position:fixed; top:5px;">
+			Sound: Sampled<input type="checkbox" id="samCB">/
+			Synth<input type="checkbox" id="sinCB">
+		</div>
+		<div id='githublink'><a href='https://github.com/mrieppel/fretboard/'><img src="img/github.png" style="height:25px;"></img></a></div>
+		<div id="title">FretBoard</div>
+		
+		<div id="I" class="heading"><strong>I. CHORDS &nbsp;&nbsp;&nbsp;</strong>play
+			<button onclick='play_chords(1);' style="margin-bottom: 5px;"><font color="green">1st</font></button>
+			<button onclick='play_chords(2);'><font color="blue">2nd</font></button>
+			<button onclick='play_chords(3);'><font color="red">3rd</font></button>
+			<button onclick='test_midi(0);'><font color="red">test</font></button>
+			<div id="selectors">
+				<div id="chordselector">
+					<select id="chordroot" onchange="myFredBoard(); // on chord change" size="2">
+						<option value="" style="font-size: smaller;" selected>[Chromatic]</option>
+						<option value="C" >C</option>
+						<option value="C#">C&#9839;</option>
+						<option value="Db">D&#9837;</option>
+						<option value="D" >D</option>
+						<option value="D#">D&#9839;</option>
+						<option value="Eb">E&#9837;</option>
+						<option value="E" >E</option>
+						<option value="F" >F</option>
+						<option value="F#">F&#9839;</option>
+						<option value="Gb">G&#9837;</option>
+						<option value="G" >G</option>
+						<option value="G#">G&#9839;</option>
+						<option value="Ab">A&#9837;</option>
+						<option value="A" >A</option>
+						<option value="A#">A&#9839;</option>
+						<option value="Bb">B&#9837;</option>
+						<option value="B" >B</option>
+						<option value="B#">B&#9839;</option>
+					</select>
+				</div>
+				<select id="chordmode" onchange="myFredBoard(); // on mode change">
+					<option value="2,2,1,2,2,2,1"selected>maj
+					</option><option value="2,1,2,2,1,2,2">min
+					</option><option value="2,2,1,3,1,2,1">aug
+					</option><option value="2,1,2,1,2,2,2">dim
+					</option><option value="2,2,1,2,2,2,1">sus4
+					</option><option value="2,2,1,2,2,2,1">maj6
+					</option><option value="2,1,2,2,2,1,2">min6
+					</option><option value="2,2,1,2,2,1,2">7
+					</option><option value="2,2,1,2,2,2,1">maj7
+					</option><option value="2,1,2,2,1,2,2">min7
+					</option><option value="2,1,2,1,2,1,3">dim7
+					</option><option value="2,2,1,2,2,1,2">9
+					</option>
+					<!-- advanced chordmode
+					<select id="chordmode" onchange="putChord();putProg();">
+						<option value="1,1,1,1,1,1,1,1,1,1,1,1">Chromatic
+						</option><option value="1,2,1,1,1,2,2,2">Eight Tone Spanish
+						</option><option value="1,2,1,2,1,2,1">Dim half
+						</option><option value="1,2,1,2,1,2,1,2">Auxiliary Diminished Blues
+						</option><option value="1,2,1,2,2,2,2">Diminished Whole Tone
+						</option><option value="1,2,1,2,2,2,2">Super Locrian
+						</option><option value="1,2,2,1,2,2,2">Locrian
+						</option><option value="1,2,2,2,1,2,2">Neopolitan Minor
+						</option><option value="1,2,2,2,1,2,2">Phrygian
+						</option><option value="1,2,2,2,2,2,1">Neoploitan Major
+						</option><option value="1,2,3,4,1">Pelog
+						</option><option value="1,3,1,2,1,2,2">Spanish Gypsy
+						</option><option value="1,3,1,2,1,3,1">Double Harmonic
+						</option><option value="1,3,1,3,1,3">Six Tone Symmetrical
+						</option><option value="1,3,2,2,2,1,1">Enigmatic
+						</option><option value="1,3,2,3,1,2">Prometheus Neopolitan
+						</option><option value="2,1,1,2,1,1,1,2,1">Nine Tone Scale
+						</option><option value="2,1,2,1,2,1,2">Dim whole
+						</option><option value="2,1,2,1,2,1,2,1">Auxiliary Diminished
+						</option><option value="2,1,2,1,2,1,3">dim7
+						</option><option value="2,1,2,1,2,2,2">dim
+						</option><option value="2,1,2,2,1,2,2">Pure Minor
+						</option><option value="2,1,2,2,1,2,2">min
+						</option><option value="2,1,2,2,1,2,2">min7
+						</option><option value="2,1,2,2,1,3,1">Harmonic Minor
+						</option><option value="2,1,2,2,2,1,2">Dorian
+						</option><option value="2,1,2,2,2,1,2">min6
+						</option><option value="2,1,2,2,2,2,1">Melodic Minor
+						</option><option value="2,1,2,2,2,2,1">Minor
+						</option><option value="2,1,3,1,1,2,2">Lydian Diminished
+						</option><option value="2,1,3,1,2,1,2">Roumanian Minor
+						</option><option value="2,2,1,1,2,2,2">Major Locrian
+						</option><option value="2,2,1,2,2,1,2">7
+						</option><option value="2,2,1,2,2,1,2">9
+						</option><option value="2,2,1,2,2,1,2">Mixolydian
+						</option><option value="2,2,1,2,2,2,1">Ionian
+						</option><option value="2,2,1,2,2,2,1">maj6
+						</option><option value="2,2,1,2,2,2,1">maj7
+						</option><option value="2,2,1,2,2,2,1">sus4
+						</option><option value="2,2,1,2,2,2,1"selected>maj
+						</option><option value="2,2,1,3,1,2,1">aug
+						</option><option value="2,2,2,1,1,2,2">Lydian Minor
+						</option><option value="2,2,2,1,2,1,2">Overtone
+						</option><option value="2,2,2,1,2,2,1">Lydian
+						</option><option value="2,2,2,2,1,1">Leading Whole Tone
+						</option><option value="2,2,2,2,1,2,1">Lydian Augmented
+						</option><option value="2,2,2,2,2">Whole
+						</option><option value="2,2,2,2,2,2">Auxiliary Augmented
+						</option><option value="2,2,2,3,1,2">Prometheus
+						</option><option value="2,2,3,2,3">Diatonic
+						</option><option value="2,3,2,2,1,2">Dominant 7th
+						</option><option value="2,3,2,2,3">Pentatonic Major
+						</option><option value="2,3,2,3",>Pentatonic Neutral
+						</option><option value="3,1,3,1,3">Augmented
+						</option><option value="3,2,1,1,3">Pentatonic Blues
+						</option><option value="3,2,1,1,3,2">Blues
+						</option><option value="3,2,1,2,2,1,2,2">Aeolian
+						</option><option value="3,2,2,3,2">Pentatonic Minor
+						</option>				
+					</select>
+					 -->
+					<!-- formula for advanced chordscale
+					<select name="formula" size="33" onchange="go()" onfocus="document.keyform.cordscal[0].checked = 1; go()">
+										 <option value="3,8,">Sus 2
+						</option><option value="4,8,3,">Minor add 9
+						</option><option value="4,8,">Minor
+						</option><option value="4,7,11,">m7b5
+						</option><option value="4,8,">Minor
+						</option><option value="4,8,3,">Minor add 9
+						</option><option value="4,8,10,">Minor 6
+						</option><option value="4,8,10,3,">Minor 6 add 9
+						</option><option value="4,8,11,">Minor 7th
+						</option><option value="4,8,11,">Minor 9
+						</option><option value="4,8,11,2,">m7b9
+						</option><option value="4,8,11,3,10,">Minor 13
+						</option><option value="4,8,11,3,6,">Minor 11
+						</option><option value="4,8,11,6,">Minor 7th add 11
+						</option><option value="4,8,11,10,">Minor 7th add 13
+						</option><option value="4,8,12,">Minor Major 7th
+						</option><option value="4,8,12,10,">Minor Major 7th add 13
+						</option><option value="4,8,12,3,">Minor Major 9
+						</option><option value="4,8,12,3,10,">Minor Major 13
+						</option><option value="4,8,12,3,6,">Minor Major 11
+						</option><option value="4,8,12,6,">Minor Major 7th add 11
+						</option><option value="4,9,11,">m7#5
+						</option><option value="5,7,11,">7b5
+						</option><option value="5,8," selected="">Major
+						</option><option value="5,8,3,">add 9
+						</option><option value="5,8,10,">6
+						</option><option value="5,8,10,3,">6 add 9
+						</option><option value="5,8,11,">9
+						</option><option value="5,8,11,">Dominant 7th
+						</option><option value="5,8,11,2,">7b9
+						</option><option value="5,8,11,3,10,">13
+						</option><option value="5,8,11,3,6,">11
+						</option><option value="5,8,11,3,7,">9#11
+						</option><option value="5,8,11,3,9,">9b13
+						</option><option value="5,8,11,4,">7#9
+						</option><option value="5,8,11,6,">Dominant 7th add 11
+						</option><option value="5,8,11,10,">Dominant 7th add 13
+						</option><option value="5,8,12,">Major 7th
+						</option><option value="5,8,12,">Major 9
+						</option><option value="5,8,12,3,10,">Major 13
+						</option><option value="5,8,12,3,6,">Major 11
+						</option><option value="5,8,12,6,">Major 7th add 11
+						</option><option value="5,8,12,10,">Major 7th add 13
+						</option><option value="5,9,11,">7#5
+						</option><option value="5,9,11,2,">7#5b9
+						</option><option value="6,8,">Sus 4
+						</option><option value="6,8,10,">6sus4
+						</option><option value="6,8,11,">7sus4
+						</option><option value="6,8,11,3,">9sus4
+						</option><option value="6,8,12,">Major 7th Sus4
+						</option><option value="6,8,12,3,">Major 9 Sus4
+						</option><option value="8,">5
+						</option>
+					</select>
+		 -->
+				</select>
+				<select id="chordtuning" style="float:right; font-size:14px;" onchange="myFredBoard(); // on tuning">
+					<option value="E,A,D,G,B,E" selected>Standard Tuning
+					</option><option value="D,A,D,G,B,E">Drop D
+					</option><option value="D,G,D,G,B,D">Open G
+					</option><option value="Eb,G#,C#,F#,Bb,Eb">Hendrix
+					</option><option value="E,A,D,G,C,F">JORDAN
+					</option><option value="D,A,D,F#,A,D">Open D
+					</option><option value="E,B,E,G#,B,E">Open E
+					</option><option value="E,A,C#,E,A,E">Open A
+					</option><option value="B,F#,B,F#,B,D#">Open B
+					</option><option value="C,G,C,G,C,E">Open C
+					</option><option value="C,F,C,F,A,F">Open F	
+					</option><option value="E,A,E,A,A,E">A5
+					</option><option value="F#,B,F#,B,B,F#">B5
+					</option><option value="C,G,C,G,G,G">C5
+					</option><option value="D,A,D,A,D,D">D5
+					</option><option value="E,B,E,E,B,E">E5
+					</option><option value="F,C,C,C,C,F">F5
+					</option><option value="D,G,D,G,D,G	">G5
+					</option><option value="D,D,D,D,D,D">Ostrich
+					</option>
+				</select>
+					<br/>
+				<strong>Scales:</strong>	<input type="checkbox" 	id="myScale_CB" 			onchange="toggle_Scale()">
+				<strong>Progressions:</strong><input type="checkbox" id="myProgress_CB" 		onchange="toggle_Progress()">
+			</div>
+			<div id="chordinfo"></div>
+			<div class="fredy"><!-- svg fretboards -->
+				<svg id="chordboard" width="100%" height="170">
+					<g id="frets" transform="translate(0,25)">
+						<circle cx="-130" cy="62" r="166" />
+						<line x1="54"  y1="0" x2="54"  y2="125" stroke-width="8";/>
+						<line x1="105" y1="0" x2="105" y2="125" stroke-width="2"/> <text x="080" y="-14" >1</text>
+						<line x1="155" y1="0" x2="155" y2="125" stroke-width="2"/> <text x="130" y="-14" >2</text> <rect x="157" y="0" width="47" height="125" /><circle cx="180" cy="62" r="3" />
+						<line x1="205" y1="0" x2="205" y2="125" stroke-width="2"/> <text x="180" y="-14" >3</text>                            
+						<line x1="255" y1="0" x2="255" y2="125" stroke-width="2"/> <text x="230" y="-14" >4</text> <rect x="257" y="0" width="47" height="125" /><circle cx="280" cy="62" r="3" />
+						<line x1="305" y1="0" x2="305" y2="125" stroke-width="2"/> <text x="280" y="-14" >5</text>                            
+						<line x1="355" y1="0" x2="355" y2="125" stroke-width="2"/> <text x="330" y="-14" >6</text> <rect x="357" y="0" width="47" height="125" /><circle cx="380" cy="37" r="3" /><circle cx="380" cy="87" r="3" />
+						<line x1="405" y1="0" x2="405" y2="125" stroke-width="2"/> <text x="380" y="-14" >7</text>                           
+						<line x1="455" y1="0" x2="455" y2="125" stroke-width="2"/> <text x="430" y="-14" >8</text> <rect x="457" y="0" width="47" height="125" /><circle cx="480" cy="62" r="3" />
+						<line x1="505" y1="0" x2="505" y2="125" stroke-width="2"/> <text x="480" y="-14" >9</text>
+						<line x1="555" y1="0" x2="555" y2="125" stroke-width="2"/> <text x="530" y="-14" >10</text>
+						<line x1="605" y1="0" x2="605" y2="125" stroke-width="2"/> <text x="580" y="-14" >11</text><rect x="607" y="0" width="43" height="125" /><circle cx="630" cy="37" r="3" /><circle cx="630" cy="87" r="3" /> 
+						<line x1="650" y1="0" x2="650" y2="125" stroke-width="2"/> <text x="630" y="140" >12</text>
+						<line x1="680" y1="0" x2="680" y2="125" stroke-width="1"/> <text x="660" y="140" >13</text>
+						<line x1="710" y1="0" x2="710" y2="125" stroke-width="1"/> <text x="690" y="140" >14</text><rect x="720" y="54" width="10" height="16" /><circle cx="725" cy="62" r="3" /> 
+						<line x1="740" y1="0" x2="740" y2="125" stroke-width="1"/> <text x="720" y="140" >15</text>
+						<line x1="770" y1="0" x2="770" y2="125" stroke-width="1"/> <text x="750" y="140" >16</text><rect x="780" y="54" width="10" height="16" /><circle cx="785" cy="62" r="3" /> 
+						<line x1="800" y1="0" x2="800" y2="125" stroke-width="1"/> <text x="780" y="140" >17</text>
+					</g>				
+					<g id="scale" transform="translate(0,0)">
+						<g class="string" id="s1" transform="translate(0,25)"> </g>
+						<g class="string" id="s2" transform="translate(0,50)"> </g>
+						<g class="string" id="s3" transform="translate(0,75)"> </g>
+						<g class="string" id="s4" transform="translate(0,100)"></g>
+						<g class="string" id="s5" transform="translate(0,125)"></g>
+						<g class="string" id="s6" transform="translate(0,150)"></g>
+					</g>
+					<g id="chords" transform="translate(0,0)">
+						<g class="string" id="s1" transform="translate(0,25)">  <line x1="50" y1="0" x2="820" y2="0" stroke-width="1" /> </g>
+						<g class="string" id="s2" transform="translate(0,50)">  <line x1="50" y1="0" x2="820" y2="0" stroke-width="2" /> </g>
+						<g class="string" id="s3" transform="translate(0,75)">  <line x1="50" y1="0" x2="820" y2="0" stroke-width="3" /> </g>
+						<g class="string" id="s4" transform="translate(0,100)"> <line x1="50" y1="0" x2="820" y2="0" stroke-width="3" /> </g>
+						<g class="string" id="s5" transform="translate(0,125)"> <line x1="50" y1="0" x2="820" y2="0" stroke-width="4" /> </g>
+						<g class="string" id="s6" transform="translate(0,150)"> <line x1="50" y1="0" x2="820" y2="0" stroke-width="5" /> </g>
+					</g>
+					<g id="progress" transform="translate(0,0)">
+						<g class="string" id="s1" transform="translate(0,25)"> </g>
+						<g class="string" id="s2" transform="translate(0,50)"> </g>
+						<g class="string" id="s3" transform="translate(0,75)"> </g>
+						<g class="string" id="s4" transform="translate(0,100)"></g>
+						<g class="string" id="s5" transform="translate(0,125)"></g>
+						<g class="string" id="s6" transform="translate(0,150)"></g>
+					</g>
+					<g id="midi" transform="translate(0,0)">
+						<g class="string" id="s1" transform="translate(0,25)"> </g>
+						<g class="string" id="s2" transform="translate(0,50)"> </g>
+						<g class="string" id="s3" transform="translate(0,75)"> </g>
+						<g class="string" id="s4" transform="translate(0,100)"></g>
+						<g class="string" id="s5" transform="translate(0,125)"></g>
+						<g class="string" id="s6" transform="translate(0,150)"></g>
+					</g>	
+					
+				</svg>
+			</div>
+			
+		</div>
+		<div id="II" class="heading"><strong>II. Scales</strong>
+			<select id="scalemode" style="width:120px;" onchange="putScale(); // needed scale mode">
+				<option value="2,2,1,2,2,2,1">Major
+				</option><option value="2,1,2,2,1,2,2">Minor
+				</option><option value="2,2,1,2,2,2,1">Maj.Pentatonic
+				</option><option value="2,1,2,2,1,2,2">Min.Pentatonic
+				</option><option value="2,1,2,1,1,1,2,2">Blues
+				</option><option value="2,1,2,2,2,1,2">Dorian
+				</option><option value="1,2,2,2,1,2,2">Phrygian
+				</option><option value="2,2,2,1,2,2,1">Lydian
+				</option><option value="2,2,1,2,2,1,2">Mixolydian
+				</option><option value="1,2,2,1,2,2,2">Locrian
+				</option><option value="1,1,1,1,1,1,1,1,1,1,1,1">Chromatic
+				</option>
+			</select>
+			<div id="scaleinfo"></div>
+		</div>
+		<div id="III" class="heading">
+			<p style="margin:0px;"><strong>III. Chord Progressions Based on </strong>
+				<span id="keyspan"style="color:red; margin-left:60px; font-weight: 900;" >select a root note</span>
+			</p>
+			<div id="progdiv"></div> 
+			<div id="diagram" style="zoom: 0.7; float:right; background: pink;">
+				<span id="dig1"></span><span id="dig2"></span><span id="dig3"></span>
+			</div>
+			<div id="debuger" style="zoom: 0.9; float:left; width: 200px; margin-left: 6px;"></div>
+		</div>			
+
+
+	</div>
+  <audio data-audio-key="80" id="steelnotes" src="./Audio/drums/Kick.mp3" ></audio>
+
+	<script> document.getElementById("githublink").innerHTML += document.lastModified.substring(0,10);</script>	
+</body>
+</html>
