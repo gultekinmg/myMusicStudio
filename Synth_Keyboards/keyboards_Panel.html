@@ -1,0 +1,432 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+	<link rel="stylesheet" type="text/css" href="keyboard.css">
+	<script src="dragger.js"></script>
+</head>
+<body>
+		<div id="keyboard_3">
+			<button id="keyboard_3_on" onclick="dsply_frm('keyboard_3');">key3</button>
+			<div id="keyboard_3_frame"><iframe src="keyboard.html?ins=3"></iframe></div>
+		</div>
+		<div id="keyboard_2">
+			<button id="keyboard_2_on" onclick="dsply_frm('keyboard_2');">key2</button>
+			<div id="keyboard_2_frame"><iframe src="keyboard.html?ins=2"></iframe></div>
+		</div>
+		<div id="keyboard_1">
+			<button id="keyboard_1_on" onclick="dsply_frm('keyboard_1'); ">key1</button>
+			<div id="keyboard_1_frame"><iframe src="keyboard.html?ins=1"></iframe></div>
+		</div>
+		<div id="keyboard_0">
+			<button id="keyboard_0_on" onclick="dsply_frm('keyboard_0'); ">key0</button>
+			<div id="keyboard_0_frame"><iframe id="keyboard_0_iframe" src="keyboard_chords.html?ins=0"></iframe></div>
+		</div>
+		<!-- -->
+			<button id="about" style="position:absolute;top:40px;left:10px;" onclick="dsply_frm('about');">about</button>
+		<div id="chordform"style="position:absolute;left:0px;top:0px;padding: 10px 10px 0px;text-align:left;background-color: beige; display:none;">
+			<button id="chordform_on" style="position:absolute;top:0px;right:-52px;" onclick="dsply_frm('chordform');"><b>Simulate chords</b></button>
+			<form id="chordform_frame" name="keyform"style="display:none;">
+				<input type="radio" name="cordscal" value="0" checked="" onclick="document.keyform.formula.focus()"><b>Chords</b>
+				<input type="radio" name="cordscal" onclick="document.keyform.scale.focus()" value="1"><b>Scale</b>
+				<br><select name="root" size="1" onchange="go()">
+									 <option value="-1" selected="">root
+					</option><option value="1">C
+					</option><option value="2">C#/Db
+					</option><option value="3">D
+					</option><option value="4">D#/Eb
+					</option><option value="5">E
+					</option><option value="6">F/E#
+					</option><option value="7">F#/Gb
+					</option><option value="8">G
+					</option><option value="9">G#/Ab
+					</option><option value="10">A
+					</option><option value="11">A#/Bb
+					</option><option value="12">B/Cb
+					</option>
+				</select>
+				<br><select name="formula" size="1" onchange="go()" onfocus="document.keyform.cordscal[0].checked = 1; go()">
+									 <option value="3,8,">Sus 2
+					</option><option value="4,7,11,">m7b5
+					</option><option value="4,8,">min
+					</option><option value="4,8,3,">m/add9
+					</option><option value="4,8,10,">m/6
+					</option><option value="4,8,10,3,">m/6/add9
+					</option><option value="4,8,11,">m/7.
+					</option><option value="4,8,11,">m/9
+					</option><option value="4,8,11,2,">m7b9
+					</option><option value="4,8,11,3,10,">m/13
+					</option><option value="4,8,11,3,6,">m/11
+					</option><option value="4,8,11,6,">m/7./add11
+					</option><option value="4,8,11,10,">m/7./add13
+					</option><option value="4,8,12,">m/maj7.
+					</option><option value="4,8,12,10,">m/maj7./add13
+					</option><option value="4,8,12,3,">m/maj9
+					</option><option value="4,8,12,3,10,">m/maj13
+					</option><option value="4,8,12,3,6,">m/maj11
+					</option><option value="4,8,12,6,">m/maj7./add11
+					</option><option value="4,9,11,">m7#5
+					</option><option value="5,7,11,">7b5
+					</option><option value="5,8," selected="">Major chords
+					</option><option value="5,8,3,">add9
+					</option><option value="5,8,10,">6
+					</option><option value="5,8,10,3,">6/add9
+					</option><option value="5,8,11,">9
+					</option><option value="5,8,11,">dom/7.
+					</option><option value="5,8,11,2,">7b9
+					</option><option value="5,8,11,3,10,">13
+					</option><option value="5,8,11,3,6,">11
+					</option><option value="5,8,11,3,7,">9#11
+					</option><option value="5,8,11,3,9,">9b13
+					</option><option value="5,8,11,4,">7#9
+					</option><option value="5,8,11,6,">dom/7./add11
+					</option><option value="5,8,11,10,">dom/7./add13
+					</option><option value="5,8,12,">maj7.
+					</option><option value="5,8,12,">maj9
+					</option><option value="5,8,12,3,10,">maj13
+					</option><option value="5,8,12,3,6,">maj11
+					</option><option value="5,8,12,6,">maj7./add11
+					</option><option value="5,8,12,10,">maj7./add13
+					</option><option value="5,9,11,">7#5
+					</option><option value="5,9,11,2,">7#5b9
+					</option><option value="6,8,">Sus 4
+					</option><option value="6,8,10,">6sus4
+					</option><option value="6,8,11,">7sus4
+					</option><option value="6,8,11,3,">9sus4
+					</option><option value="6,8,12,">maj7. Sus4
+					</option><option value="6,8,12,3,">maj9 Sus4
+					</option><option value="8,">5
+					</option>
+				</select>
+				<input type="button" value="Invert Chord" name="hjh" onclick="inverter();">
+				<br><select name="scale" size="1"onchange="go()" onfocus="document.keyform.cordscal[1].checked = 1; go()">
+									 <option value="2212221" selected="">Major Scales
+					</option><option value="2122221">Minor scales
+					</option><option value="2122131">Harmonic Minor
+					</option><option value="2122221">Melodic Minor
+					</option><option value="23223">Pentatonic Major
+					</option><option value="32232">Pentatonic Minor
+					</option><option value="32113">Pentatonic Blues
+					</option><option value="2323">Pentatonic Neutral
+					</option><option value="2212221">Ionian
+					</option><option value="32122122">Aeolian
+					</option><option value="2122212">Dorian
+					</option><option value="2212212">Mixolydian
+					</option><option value="1222122">Phrygian
+					</option><option value="2221221">Lydian
+					</option><option value="1221222">Locrian
+					</option><option value="1212121">Dim half
+					</option><option value="2121212">Dim whole
+					</option><option value="22222">Whole
+					</option><option value="31313">Augmented
+					</option><option value="111111111111">Chromatic
+					</option><option value="2131212">Roumanian Minor
+					</option><option value="1312122">Spanish Gypsy
+					</option><option value="321132">Blues
+					</option><option value="22323">Diatonic
+					</option><option value="1312131">Double Harmonic
+					</option><option value="12111222">Eight Tone Spanish
+					</option><option value="1322211">Enigmatic
+					</option><option value="222211">Leading Whole Tone
+					</option><option value="2222121">Lydian Augmented
+					</option><option value="1222221">Neoploitan Major
+					</option><option value="1222122">Neopolitan Minor
+					</option><option value="12341">Pelog
+					</option><option value="222312">Prometheus
+					</option><option value="132312">Prometheus Neopolitan
+					</option><option value="131313">Six Tone Symmetrical
+					</option><option value="1212222">Super Locrian
+					</option><option value="2221122">Lydian Minor
+					</option><option value="2131122">Lydian Diminished
+					</option><option value="211211121">Nine Tone Scale
+					</option><option value="21212121">Auxiliary Diminished
+					</option><option value="222222">Auxiliary Augmented
+					</option><option value="12121212">Auxiliary Diminished Blues
+					</option><option value="2211222">Major Locrian
+					</option><option value="2221212">Overtone
+					</option><option value="1212222">Diminished Whole Tone
+					</option><option value="2122122">Pure Minor
+					</option><option value="232212">Dominant 7th
+					</option>
+				</select>
+					full:<input type="CHECKBOX" value="off" name="lingerscal" onclick="go()">
+				<br>Or/<input type="radio" name="cordscal" value="2" onclick="document.keyform.forminput.focus();"><b>Enter Formula as</b>
+				<br>#s<input type="radio" name="notesnum" value="0" checked="">
+					Notes<input type="radio" name="notesnum" value="1">
+					Scale<input type="radio" name="notesnum" value="2">
+				<br><input type="text" name="forminput" width="15" style="background-color:lightyellow;"
+							onfocus=" document.keyform.formdisp.value = &#39;&#39;; document.keyform.cordscal[2].checked = 1;"
+							onchange="simKeyPress();" >
+				<br><i style="font-size:12px; margin-left: 10px;">in C enharmonics.</i>
+				<br><input type="text" name="formdisp" width="16" style="background-color:aqua;font-weight:800;"
+							onfocus="simKeyPress();" >
+				<br><br><input type="button" value="DisPLAY" name="goinput" onclick="go(); simKeyPress();">
+		</form>
+		</div>
+		<!-- -->	
+		<script language="JavaScript">var myvari=myvarb="", ips=incr2=0;
+			function go() {ips = 0; //1-start
+					if (document.keyform.cordscal[0].checked == 1) {
+						x = document.keyform.formula.options.selectedIndex;
+						chordcode = document.keyform.formula.options[x].value;
+						dispch(chordcode);
+						myvari = myvarb = chordcode;
+					}
+					else if (document.keyform.cordscal[1].checked == 1) { scalecalc();}
+					else if (document.keyform.cordscal[2].checked == 1) {
+						if (document.keyform.notesnum[2].checked == 1) { scalecalc(); }
+						else {ConvertInput();dispch(chordcode);myvari = myvarb = chordcode;}
+					}
+			}
+			function dispch(formulatext) {//2-
+				z = document.keyform.root.options.selectedIndex; root = document.keyform.root.options[z].value;
+				if (document.keyform.notesnum[2].checked != 1) { //if chord
+					if (formulatext.charAt(0) != "1") {	userinput = document.keyform.forminput.value;
+						if (document.keyform.cordscal[2].checked == 1) { if (userinput.charAt(0) != "1") { a = Number.NaN;}}
+						else { a = parseFloat(root) + 12; }
+					}else {a = Number.NaN;}
+				}
+				forStrng = "";
+				playnote(a);
+				if (document.keyform.cordscal[2].checked == 1) {
+						if (document.keyform.notesnum[1].checked != 1) { a = parseFloat(root) + 12; } else { a = 13; }
+				}
+				else { a = parseFloat(root) + 12;}
+				b = 0; d = formulatext.length/2;
+				for (var i = 0; i < d; i++) { // place chord  or scale..
+					b = formulatext.indexOf(",")
+					myvar = parseFloat(formulatext.substring(0, b)) + a - 1
+					playnote(myvar);
+					formulatext = formulatext.substring(b + 1 , formulatext.length)
+				}
+				dispstring = forStrng.substring(0, (forStrng.length - 1));
+				document.keyform.formdisp.value = dispstring;
+			}
+			function playnote(note) {//3-formstring and show.
+				if (note ==  1){forStrng = forStrng + 'C.2,';	}
+				if (note ==  2){forStrng = forStrng + 'C#.2,';	}
+				if (note ==  3){forStrng = forStrng + 'D.2,';	}
+				if (note ==  4){forStrng = forStrng + 'Eb.2,';	}
+				if (note ==  5){forStrng = forStrng + 'E.2,';	}
+				if (note ==  6){forStrng = forStrng + 'F.2,';	}
+				if (note ==  7){forStrng = forStrng + 'F#.2,';	}
+				if (note ==  8){forStrng = forStrng + 'G.2,';	}
+				if (note ==  9){forStrng = forStrng + 'G#.2,';	}
+				if (note == 10){forStrng = forStrng + 'A.2,';	}
+				if (note == 11){forStrng = forStrng + 'A#.2,';	}
+				if (note == 12){forStrng = forStrng + 'B.2,';	}
+				if (note == 13){forStrng = forStrng + 'C.3,';	}
+				if (note == 14){forStrng = forStrng + 'C#.3,';	}
+				if (note == 15){forStrng = forStrng + 'D.3,';	}
+				if (note == 16){forStrng = forStrng + 'Eb.3,';	}
+				if (note == 17){forStrng = forStrng + 'E.3,';	}
+				if (note == 18){forStrng = forStrng + 'F.3,';	}
+				if (note == 19){forStrng = forStrng + 'F#.3,';	}
+				if (note == 20){forStrng = forStrng + 'G.3,';	}
+				if (note == 21){forStrng = forStrng + 'G#.3,';	}
+				if (note == 22){forStrng = forStrng + 'A.3,';	}
+				if (note == 23){forStrng = forStrng + 'A#.3,';	}
+				if (note == 24){forStrng = forStrng + 'B.3,';	}
+				if (note == 25){forStrng = forStrng + 'C.4,';	}
+				if (note == 26){forStrng = forStrng + 'C#.4,';	}
+				if (note == 27){forStrng = forStrng + 'D.4,';	}
+				if (note == 28){forStrng = forStrng + 'Eb.4,';	}
+				if (note == 29){forStrng = forStrng + 'E.4,';	}
+				if (note == 30){forStrng = forStrng + 'F.4,';	}
+				if (note == 31){forStrng = forStrng + 'F#.4,';	}
+				if (note == 32){forStrng = forStrng + 'G.4,';	}
+				if (note == 33){forStrng = forStrng + 'G#.4,';	}
+				if (note == 34){forStrng = forStrng + 'A.4,';	}
+				if (note == 35){forStrng = forStrng + 'A#.4,';	}
+				if (note == 36){forStrng = forStrng + 'B.4';		}
+			}function openhelp() {remote = window.open("help.html","remotewin","width=350,height=400,scrollbars=yes");}
+			//
+			function scalecalc(){scaletext = scaletext1 = scaletext2 = scaletext3 = ""; u = 1; t = 0; i = 0;
+				if (document.keyform.cordscal[1].checked == 1) {
+					x = document.keyform.scale.options.selectedIndex;
+					scalevalue = document.keyform.scale.options[x].value.toUpperCase()
+				}
+				else if (document.keyform.cordscal[2].checked == 1) {
+					if (document.keyform.notesnum[2].checked == 1) {scalevalue = document.keyform.forminput.value.toUpperCase();}
+					else {scalevalue = document.keyform.forminput.value.toUpperCase();}
+				}
+				var check;
+				for (var y = 0; y < scalevalue.length; y++) {
+					check=0;
+					if (scalevalue.charAt(y) == "1") { t = 1 + u;check=1; }
+					else if (scalevalue.charAt(y) == "2") { t = 2 + u;check=1; }
+					else if (scalevalue.charAt(y) == "3") { t = 3 + u;check=1; }
+					else if (scalevalue.charAt(y) == "4") { t = 4 + u;check=1; }
+					else if (scalevalue.charAt(y) == "5") { t = 5 + u;check=1; }
+					else if (scalevalue.charAt(y) == "6") { t = 6 + u;check=1; }
+					else if (scalevalue.charAt(y) == "7") { t = 7 + u;check=1; }
+					else if (scalevalue.charAt(y) == "8") { t = 8 + u;check=1; }
+					else if (scalevalue.charAt(y) == "9") { t = 9 + u;check=1; }
+					if (check==1){ scaletext = scaletext +  t + ",";
+						scaletext1 = scaletext1 +  (t - 12) + ",";
+						scaletext2 = scaletext2 +  (t + 12) + ",";
+						scaletext3 = scaletext3 +  (t - 24) + ",";
+					}
+					u = t
+				}
+				if (document.keyform.lingerscal.checked == 1) {	totalscale =  scaletext + scaletext1 + scaletext3 + scaletext2;}
+				else {totalscale = scaletext;}
+				dispch(totalscale);
+			}
+			//Invert Chord...
+			function inverter() {
+			ndums = (ips*2) + incr2
+						if (ndums >= myvarb.length) {
+						ndums = 0
+						ips = -1
+						myvari = myvarb
+						incr2= 0
+						}
+						else {
+								 if (myvarb.charAt(ndums +1) != ","){
+										chartf = myvarb.substring(ndums, (myvarb.indexOf(",")+ ndums +1))
+										incr = 2
+										incr2= 1
+								 }
+								 else {
+										chartf = myvarb.substring(ndums, (myvarb.indexOf(",")+ ndums))
+										incr = 1
+										incr2= 0
+								 }
+								 tochange = parseFloat(chartf) 
+								 myvari = myvarb.substring(0, ndums) + (tochange - 12) + myvarb.substring((ndums + incr), myvarb.length)
+						}
+			dispch(myvari);
+			ips ++
+			}
+			///
+		</script>
+		<script>
+			function dsply_frm(id){ var dsp=document.getElementById(id+'_frame').style;
+				if(dsp.display=="block"){document.getElementById(id+'_frame').style.display ="none";return;}
+				dsp.display ="block";
+			}
+			/// simulate clicks on frames requires CORS ////////////////////////
+			document.addEventListener('keydown', e => {
+				const frame = document.getElementById("keyboard_0_iframe");
+				frame.contentDocument.body.dispatchEvent( new KeyboardEvent('keydown', {key: e.key}));
+			});
+			function simKeyPress() { var chord=document.keyform.formdisp.value; ///////// good outcomes
+				if(chord){ 
+					var x=chord.split(',');console.log(x,x[0],x[1]);
+					var arrNotes=[];
+					for (i=0; i < x.length; i++) {
+						arrNotes[i]=x[i].replace('.', ',').replace('2', '-1').replace('3', '0').replace('4', '1');
+						console.log(arrNotes[i]);
+					}
+				}
+				var y=document.getElementById('keyboard_0_iframe');	y.focus();
+				var x=65;
+				var evt = new KeyboardEvent('keydown', {'keyCode':x, 'which':x});
+				window.dispatchEvent (evt);		
+			}
+			//////////////////////////////////////////////////////////////////////////
+			/// _drag dom Elements
+			_dragElement(document.getElementById("chordform"),document.getElementById("chordform_on")); //Make the DIV element draggagle (elm with dragersection)
+			_dragElement(document.getElementById("keyboard_0"),document.getElementById("keyboard_0_on")); //Make the DIV element draggagle (elm with dragersection)
+			_dragElement(document.getElementById("keyboard_1"),document.getElementById("keyboard_1_on")); //Make the DIV element draggagle:
+			_dragElement(document.getElementById("keyboard_2"),document.getElementById("keyboard_2_on")); //Make the DIV element draggagle:
+			_dragElement(document.getElementById("keyboard_3"),document.getElementById("keyboard_3_on")); //Make the DIV element draggagle:
+		</script>
+		
+		<div id="about_frame"><div id="demo"></div>	
+		<div class="about">
+			<div class="header">What is this?</div>
+			<div class="contents">
+				This is a an emulated keyboard (a SYNTHESIZER!) that spans three musical octaves (C2-B5).<br>
+				Give it a shot, click any key with your mouse, or use the keys on your keyboard as indicated on the screen!<br>
+				(If you don't hear anything, try using <a href="https://google.com/chrome">Google Chrome</a>
+				or update your browser to the newest version.)
+			</div>
+			<div class="header">How does it work?</div>
+			<div class="contents">
+				This keyboard works by generating <a href="https://en.wikipedia.org/wiki/.WAV_file">Waveform Audio</a> file data dynamically, converting it into a <a href="https://en.wikipedia.org/wiki/Data_URI_scheme">base64-encoded dataURI</a>, and subsequently playing it using the <a href="https://www.w3.org/wiki/HTML/Elements/audio">HTML5 audio element</a>
+				from within your web browser.<br>
+				Basically, we're using math to make sounds. Hooray. This is different than other HTML5 pianos in that it doesn't <a href="http://html5piano.com/">use pre-recorded audio files</a>
+				, and that it's a <a href="http://mrcoles.com/piano/">little bit more refined</a>.
+			</div>
+			<div class="header">The Theory</div>
+			<div class="contents">
+				So you really want to get into details? Well, first of all, creating waveform is simple enough (it's just a sine wave, and we have a <i>Math.sin()</i> function in JS!), and all of the information you need about packing Waveform Audio data and creating the dataURI can be found <a href="http://www.sk89q.com/playground/jswav/">here, with much thanks to sk89q</a>. I'm going to assume a basic understanding of Javascript in this brief walkthrough, don't hesitate to <a href="https://keithwhor.com/">e-mail me</a> if you have any questions or concerns!<br><br>
+				Unfortunately, all you get out of creating a sine wave is an extremely bland (and to be blunt, annoying) flat tone.<br><br>
+				Real musical instruments create full, lively notes. We want to emulate that. How do we go about doing so?<br><br>
+				Well, thank the University of Salford - Manchester for <a href="http://www.acoustics.salford.ac.uk/acoustics_info/sound_synthesis/">this lovely page</a>. I'll provide the less mathematically-inclined with a bit of a walk through, so you can visualize what we're doing at each step.<br><br>
+				<b>Step 1. Understanding your sine wave.</b><br><br>
+				Alright, so you copy-and-pasted the code from sk89q's page above and you have your sine wave based on the <a href="http://www.phy.mtu.edu/~suits/notefreqs.html">frequency of note you want to produce</a>. Actually, what you have is a bunch of text that programatically generates the data points for a sine wave. Mamma mia!
+				<div class="code">var v = volume * Math.sin((2 * Math.PI) * (i / sampleRate) * frequency);</div>
+				So, first of all, if you're unfamiliar with waveforms I'll give you a brief overview of what we'd like to do here, along with how we're going to do it. You need to understand the following equation:
+				<div class="code">FREQUENCY (F) = 1 / PERIOD (T)</div>
+				Your period is the amount of time (t) it takes for one full oscillation of your wave. The frequency, measured in Hz (the unit 1/s) is the amount of oscillations your wave performs per second. I'm sure most of you took some sort of physics class, so I'll avoid lecturing, but basically every sound is merely just a "buzz", or vibration in the air. The faster this buzz (higher frequency, more oscillations per second, shorter period), the higher the pitch of the note.<br><br>
+				From the code I've outlined above, we end up with a waveform that looks like this (thanks to <a href="https://en.wikipedia.org/wiki/Sine_wave">Wikipedia</a> for this image):
+				<div class="image"><img src="sinewave.png" style="width:400px;" /></div>
+				One period is every two sets of vertical dotted lines. This wave is what's making our flat, ugly tone, and we want to change it. Imagine this continuing on a couple of hundred times, fluctuating between <i>-volume</i> and <i>+volume</i> (the top and bottom horizontal dotted lines, i.e., the amplitude of the wave).<br><br>
+				So what can we do?<br><br>
+				<b>Step 2. Transforming your sine wave.</b><br><br>
+				We can now use the wonderful world of <i>maths (omg!)</i> to help us out. We want to transform our sine function, as defined above, into something a little more... real. Something you'd hear in the natural world. So, how does a real instrument create sound? (<a href="http://www.acoustics.salford.ac.uk/acoustics_info/sound_synthesis/">Image Credit</a>.)
+				<div class="image"><img src="instrument_create.jpg" /></div>
+				Well, we have a few stages. During the <i>attack</i>, you're plucking/hitting a string (in the case of a piano) or initializing the oscillation which will produce your sound. There's a bit of a decay, then a hold, should you decide to maintain to oscillation, and finally a release (and subsequent death of the signal). Now, let's forget about the hold and release right now, and simplify our keyboard into just an <i>attack</i> and subsequent <i>decay</i>. Basically, what we want to do is start off with the <i>Amplitude of our sine wave at 0%</i>, bring it to a <i>peak of 100%</i> in a very short amount of time (the attack on a piano is extremely fast!) and then decay afterwards.
+				We accomplish this with what I call a <i>dampener</i>.<br><br>
+				First, the <i>attack</i>:
+<div class="code"> var attack = 0.002;
+	if(i<=sampleRate*attack) {// Linear build-up, fast.
+			curVol = volume * (i/(sampleRate*attack));}
+</div>			
+				What we're doing here is setting our attack time to 0.002s (2ms!) and linearly increasing the volume (wave amplitude) from the start of the wave until we reach the end of the attack (again, the 2ms). <i>i</i> is our counter variable, indicating our current position in the waveform. Though this might be barely perceptible to your average person, increasing the attack time to even 0.02s (20ms) has serious consequences on your sound.<br><br>
+				Next, the <i>decay</i>:
+<div class="code">else {
+// Decay. Exponentially increasing (faster) decay
+// at higher frequencies due to logarithmic dampener.
+var dampen = Math.pow(0.5*Math.log((frequency*volume)/sampleRate),2);
+curVol = volume * Math.pow(
+	(1-((i-(sampleRate*attack))/(sampleRate*(seconds-attack)))),dampen
+	);
+}
+</div>
+				Woo! That's a lot of stuff. Logarithms and exponents oh my! What we're doing here is first setting a <i>dampener</i>, which is just a mathematical function that creates a larger number at higher frequencies. You'll notice that if you hit a low note on your piano, it sticks around for a lot longer than a high note. I want to emulate that, and this is a "hack" to approximate it without actually simulating artificial strings and doing <i>real physics</i>. The last line at the bottom? Just saying we want to decay toward 0, in a polynomial fashion based on the value of our dampener.<br><br>
+				Please note that <i>curVol</i> now contains our modified (dampened) <i>Amplitude</i>. We will apply it to the wave with everything else in the next step.<br><br>
+				The reason we use a logarithm is that note frequencies scale exponentially (each note is 2x the frequency of the one below it in octave) and we don't quite want a doubling.<br> I got the best sounding results using this algorithm after fiddling around for a while. Here are two others you can play with:
+				<div class="code">var dampen2 = Math.log((frequency*volume)/sampleRate);
+				var dampen3 = 1 + (0.01 * frequency);
+				</div>
+				<br><br>
+				<b>Step 3. Adding noise.</b><br><br>
+				Alright. We've created the basis for modifying our waveform to give it some <i>life</i>. However, it's still going to sound extremely, extremely robotic. So now we'll do two things. We're first going to add noise to our signal, and then we're going to modulate it back to the carrier signal to normalize it back to within the range we'd like.
+<div class="code">// This can generate noise by creating out-of-phase waves.
+	var base = function(x) {
+		x = x || 0;
+			return Math.sin((2 * Math.PI) * (i / sampleRate) * frequency + (x * Math.PI));
+	};
+	var mod = [];
+	mod.push(function(x) { 
+		return 1 * Math.sin(2 * Math.PI * ((i / sampleRate) * frequency) + x); });
+	mod.push(function(x) { 
+		return 0.5 * Math.sin(2 * Math.PI * ((i / sampleRate) * frequency) + x); });
+	mod.push(function(x) { 
+		return 0.25 * Math.sin(2 * Math.PI * ((i / sampleRate) * frequency) + x); });
+	v = mod[0](Math.pow(base(0), 2) + (0.75 * base(0.25)) + (0.1 * base(0.5)));
+	v = Math.min(Math.max(v, -1), 1);
+	v = curVol * v;
+</div>
+				<div>
+					What we have here is <i>base()</i>, our function which generates our wave. If we don't give it a value, it returns our basic waveform. If we do give it a value, it shifts the wave by <i>0.5*x</i> periods. Note that any multiple of 2 here will give an overlapping period and will just give us our initial waveform. The idea is that you can create an out-of-phase wave with the same frequency that will interfere with your basic waveform and "warp" it, removing the "perfect", or flat tone from it.<br><br>
+					The <i>mod[]</i> array contains frequency modulation functions, you can use them however you'd wish, but always apply <i>mod[0]</i> at the end - it contains your carrier wave, and acts as a way to normalize all of the interference you create by combining and modulating other waveforms.<br><br>
+					Our final waveform is a modulated combination of our initial waveform interfering with two "quieter" versions of itself, one at 75% amplitude, and the other at 10% amplitude, both slightly out-of-phase with their parent.<br><br>
+					Finally, we multiply <i>curVol</i>, our dampened amplitude, by our final waveform to finish creating our note.<br><br>
+					<b>Step 4. Output</b><br><br>
+					Take your data, base64 encode it, set the source data of an HTML5 Audio object to your newly generated dataURI and play it! Voila, a musical note. Hopefully you get the basics of what we're doing to our waveforms here. :)<br><br>
+					<b>Addendum 1. Other instruments, and Karplus-Strong string synthesis</b><br><br>
+					So, since initially creating this page, I've implemented a number of different instruments. The organ is much like the piano, although with a more extended attack. The "EDM" is just a highly-modulated version of the piano with a bit of harmonic resonance added in. The <i>acoustic guitar</i>, however, is an entirely different ball game.<br><br>
+					The "plucked string" sound is generated by what's called <a href="https://en.wikipedia.org/wiki/Karplus%E2%80%93Strong_string_synthesis">Karplus-Strong string synthesis</a>. In a nutshell, you create a buffer that's the size of your period (based on your sampling rate and frequency). This buffer holds noise, it basically just alternates (randomly) between an amplitude of +1 and -1. You output this buffer repeatedly to give your note its pitch due to its periodicity. However, each additional time you loop through the "noise" buffer, you average each point in the buffer with the one immediately preceding it, effectively filtering it. What this causes is a decay of your signal over time, and it "smooths" out your initially chaotic waveform. You can read more about the <a href="http://music.columbia.edu/cmc/musicandcomputers/chapter4/04_09.php">Karplus-Strong algorithm at Columbia Faculty of Music</a>, or on <a href="http://dev.hasenj.org/post/4517734448">Hasen el Judy's blog</a>.
+				</div>
+			</div>
+		</div>
+	</div>
+	</div>
+
+</body>
+</html>

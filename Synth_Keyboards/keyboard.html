@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="description" content="Play with an electronic keyboard made with Javascript."/>
+  <title>Javascript Keyboard</title>
+	<link rel="stylesheet" type="text/css" href="keyboard.css">
+	<script src="audiosynth.js"></script>
+	<script src="playKeyboard.js"></script>
+</head>
+<body>
+	<!-- <script type="text/javascript" src="embed.js" data-dojo-config="usePlainJson: true, isDebug: false"></script> -->
+	<div ID="keyboard" class="keyboard-holder"></div>
+	<button onclick="hide_letters()" style="position:absolute;left:5px;top:20px;"><small>Letters</small></button>
+	<select ID="sound" style="position:absolute;left:0px;top:50px;" onchange='refresh()'>
+		<option value="0" selected>Piano</option>
+		<option value="1">Organ</option>
+		<option value="2">Acu.Guitar</option>
+		<option value="3">EDM, bro!</option>
+	</select>
+	<div id="demo"style="position:absolute;left:0px;top:300px; display:none;"></div>
+	<script type="text/javascript">
+		// parent.iFrameWin = window;
+		// url parameters
+		function getUrlVars(){ var urlvars = {};
+			window.location.href.replace(/[?&]+([^=&]+)=([^&]*)/gi, function(m,key,value){urlvars[key] = value;});
+			return urlvars;
+		}
+		var instrumentID= getUrlVars()["ins"];
+		//	create instrument board
+		var t=document.getElementById("sound");	t.selectedIndex = instrumentID; //preselect from parent if none 0
+		var instrument=t.options[t.selectedIndex].text; //our instrument
+		//
+		function refresh(){
+			var KeyboardSound=t.value; //console.log(instrument,instrumentID+'-sound:'+KeyboardSound);
+			document.getElementById("keyboard").innerHTML='';
+			playKeyboard(KeyboardSound);
+		}
+		refresh();
+		//////////////
+	</script>
+</body>
+</html>
