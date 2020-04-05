@@ -1,0 +1,58 @@
+body{text-align:center;}
+
+#chordroot{ border-radius:9px;	color:#1c87c9;background-color:#eee; margin: 0px -16px -30px 0px; font-size:22px;}
+.chordselector select option { display:inline-block;}
+.chordselector { display:inline-block; vertical-align:top; overflow:hidden;}
+
+/*frame setup*/
+.banner{width:1200px;height:340px;object-fit:cover;object-position:0px -90px;}	
+.title{color:#F50890;font-size:40px;text-shadow:0px -1px 5px #F5F408;}
+#about_frame{position:absolute;top:80px;left:0px;margin:20px;padding:3px;font-size:14px;text-align:left;z-index: 9;
+	border-style:double;border-width:5px;display:inline-block;background-color:#FAD7A0;display:none;}
+
+.key{position:absolute;font-family:Helvetica;font-weight:100;font-size:12px;cursor:pointer;
+	border: 1px solid rgba(32,32,32,0.2);border-radius: 0px 0px 5px 5px;box-shadow: 0px 5px 1px rgba(32,32,32,0.2);
+	-webkit-transition: margin 0.05s ease, background-color 0.05s ease, box-shadow 0.05s ease; }
+.key:hover{background-color:#71DB90;}
+.key .labelDiv{position:absolute;bottom:5px;text-align:center;left:0px;right:0px;color:#fff27db3;}
+.keyLabel{margin-bottom:-30px;font-weight:900;/*text-shadow:0px -1px 5px #EBF508;*/font-size:15px;display:none;color:red;}
+
+.black{width:28px;height:50px;background-color:rgb(32,32,32);color:#ffffff;z-index:1;text-shadow:0px -1px 1px #FF0000;}
+.white{width:40px;height:90px;background-color:#F2F2DE;color:#3008F5;z-index:0;text-shadow:0px 1px 1px #08E8F5;}
+.keyboard_0_black{width:28px;height:80px;	background-color:rgb(32,32,32);color:#ffffff;
+										z-index:1;text-shadow:0px -1px 1px #FF0000;}
+.keyboard_0_white{width:40px;height:140px;background-color:#FFFFCA;color:#3008F5;
+										z-index:0;text-shadow:0px 1px 1px #08E8F5;}
+
+.keyboard-holder{height:100px;/*margin:30px auto;*/position:relative;
+	user-select:none;-webkit-user-select:none;-moz-user-select:none;-o-user-select:none;}
+/*.playing{background-color:#1BC0EA;}*/
+.hide{display:none;}
+
+#keyboard{position:absolute;top:0px;left:100px;}
+/*parent setup*/
+#keyboard_3{position:absolute;left:330px;top:0px;z-index:4;}
+#keyboard_2{position:absolute;left:220px;top:100px;z-index:3;}
+#keyboard_1{position:absolute;left:120px;top:200px;z-index:2;}
+#keyboard_0{position:absolute;left:0px;top:300px;z-index:1;}
+#keyboard_3_frame{position:absolute;height:100px;width:1230px;overflow:hidden;background-color:#795548;box-shadow:5px 5px #e8e2e254;}
+#keyboard_2_frame{position:absolute;height:100px;width:1230px;overflow:hidden;background-color:#de896e;box-shadow:5px 5px #e8e2e254;}
+#keyboard_1_frame{position:absolute;height:100px;width:1230px;overflow:hidden;background-color:#F3E6EA;box-shadow:5px 5px #e8e2e254;}
+#keyboard_0_frame{position:absolute;height:400px;width:1230px;overflow:hidden;background-color:#B03305;box-shadow:5px 5px #e8e2e254;}
+#keyboard_3_on, #keyboard_2_on, #keyboard_1_on, #keyboard_0_on{
+		position:absolute;top:0px;left:0px;width:100px;z-index:99;cursor:move;}
+/**/		
+iframe{position:absolute;width:100%;height:100%;top:0px;left:0px;}
+/**/
+.about .header { background-color:rgba(32,64,128,0.5); border-radius: 10px 10px 0px 0px; color:rgb(255,255,255); text-shadow:0px 1px 0px rgb(96,96,96);
+	position: relative; max-width: 800px; margin: 0 auto;
+	font-size: 30px; font-weight: bold; padding: 20px; text-align:center; }
+.about .contents { background-color: rgb(255,255,255); font-weight: 200; padding: 20px; text-align: left; position: relative;
+	color: rgb(32,32,32); text-shadow: 0px 1px 0px rgb(224,224,224);
+	box-shadow: 0px 5px 10px rgba(32,32,32,0.5); -webkit-box-shadow: 0px 5px 10px rgba(32,32,32,0.5); border: 1px solid rgb(192,192,192); }
+.about .footer { background-color:rgba(32,64,128,0.5); border-radius: 0px 0px 10px 10px; color:rgb(255,255,255);
+	position: relative; max-width: 600px; margin: 0 auto; font-weight: bold; padding: 20px; }
+.about a, .about a:link, .about a:visited, .about a:active { font-weight:bold; color: rgb(224,96,32); text-decoration: none; }
+.about a:hover { color: rgb(224,128,64); }
+.code { border: 1px solid rgba(32,32,32,0.2); color: rgb(32,32,32); font-family: Courier New, Courier, monospace; font-size: 12px; white-space:pre; padding: 10px; margin: 10px; }
+.image { border: 1px solid rgba(32,32,32,0.2); color: rgb(32,32,32); font-family: Courier New, Courier, monospace; font-size: 12px; white-space:pre; padding: 10px; margin: 10px; text-align: center; }

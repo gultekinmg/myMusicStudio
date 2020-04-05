@@ -1,0 +1,404 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="description" content="Play with an electronic keyboard made with Javascript."/>
+  <title>Javascript Keyboard</title>
+	<link rel="stylesheet" type="text/css" href="keyboard.css">
+	<script src="dragger.js"></script>
+	<script src="audiosynth.js"></script>
+	<script src="playKeyboard.js"></script>
+</head>
+<body>
+	<div ID="keyboard" class="keyboard-holder"></div>
+	<button onclick="hide_letters()" style="position:absolute;left:5px;top:20px;"><small>Letters</small></button>
+	<select ID="sound" style="position:absolute;left:0px;top:50px;" onchange='refresh()'>
+		<option value="0" selected>Piano</option>
+		<option value="1">Organ</option>
+		<option value="2">Acu.Guitar</option>
+		<option value="3">EDM, bro!</option>
+	</select>
+	<div id="demo"style="position:absolute;left:0px;top:300px; display:none;"></div>
+	<script type="text/javascript"> // keyboard
+		//parent.iFrameWin = window;
+		//url parameters
+		function getUrlVars(){ var urlvars = {};
+			window.location.href.replace(/[?&]+([^=&]+)=([^&]*)/gi, function(m,key,value){urlvars[key] = value;});
+			return urlvars;
+		}
+		var instrumentID= getUrlVars()["ins"];
+		//	create instrument board
+		var t=document.getElementById("sound");	t.selectedIndex = instrumentID; //preselect from parent if none 0
+		var instrument=t.options[t.selectedIndex].text; //our instrument
+		//
+		function refresh(){
+			var KeyboardSound=t.value; //console.log(instrument,instrumentID+'-sound:'+KeyboardSound);
+			document.getElementById("keyboard").innerHTML='';
+			playKeyboard(KeyboardSound);
+		}
+		refresh();
+		//////////////
+	</script>
+	<!-- -->
+	<div id="chordform"style="position:absolute;left:0px;top:150px;padding: 10px 10px 0px;text-align:left;background-color: beige;">
+		<button id="chordform_on" style="position:absolute;top:0px;right:-52px;" onclick="dsply_frm('chordform');"><b>Simulate chords</b></button>
+		<form id="chordform_frame" name="keyform"style="display:none;">
+			<input type="radio" name="cordscal" value="0" checked="" onclick="document.keyform.chordformula.focus()"><b>Chords</b>
+			<input type="radio" name="cordscal" onclick="document.keyform.scale.focus()" value="1"><b>Scale</b>
+			<br>
+			<div class="chordselector">
+				<select id="chordroot" name="chordselector" onchange="go(); simKeyPress();" size="2">
+								 <option value="-1"style="font-size: smaller;"  selected="">root
+				</option><option value="1">C
+				</option><option value="2">C#
+				</option><option value="3">D
+				</option><option value="4">Eb
+				</option><option value="5">E
+				</option><option value="6">F
+				</option><option value="7">F#
+				</option><option value="8">G
+				</option><option value="9">Ab
+				</option><option value="10">A
+				</option><option value="11">Bb
+				</option><option value="12">B
+				</option>
+			</select>
+		</div><input type="button" value="Invert Chord" name="hjh" onclick="inverter(); simKeyPress();">
+			<br>
+			<div class="chordselector">
+			<select name="chordformula" onchange="go()" onfocus="document.keyform.cordscal[0].checked = 1; go()">
+								 <option value="3,8,">Sus 2
+				</option><option value="4,7,11,">m7b5
+				</option><option style="background-color: azure;" value="4,8,">minor
+				</option><option style="background-color: azure;" value="4,8,3,">m/add9
+				</option><option style="background-color: azure;" value="4,8,10,">m/6
+				</option><option style="background-color: azure;" value="4,8,10,3,">m/6/add9
+				</option><option style="background-color: azure;" value="4,8,11,">m/7.
+				</option><option style="background-color: azure;" value="4,8,11,">m/9
+				</option><option style="background-color: azure;" value="4,8,11,2,">m7b9
+				</option><option style="background-color: azure;" value="4,8,11,3,6,">m/11
+				</option><option style="background-color: azure;" value="4,8,11,3,10,">m/13
+				</option><option style="background-color: azure;" value="4,8,11,6,">m/7./add11
+				</option><option style="background-color: azure;" value="4,8,11,10,">m/7./add13
+				</option><option style="background-color: azure;" value="4,8,12,">m/maj7.
+				</option><option style="background-color: azure;" value="4,8,12,3,">m/maj9
+				</option><option style="background-color: azure;" value="4,8,12,3,10,">m/maj13
+				</option><option style="background-color: azure;" value="4,8,12,3,6,">m/maj11
+				</option><option style="background-color: azure;" value="4,8,12,6,">m/maj7./add11
+				</option><option style="background-color: azure;" value="4,8,12,10,">m/maj7./add13
+				</option><option style="background-color: azure;" value="4,9,11,">m7#5
+				</option><option value="5,7,11,">7b5
+				</option><option style="background-color:pink;" value="5,8," selected="">Major chords
+				</option><option style="background-color:pink;" value="5,8,3,">add9
+				</option><option style="background-color:pink;" value="5,8,10,">6
+				</option><option style="background-color:pink;" value="5,8,10,3,">6/add9
+				</option><option style="background-color:pink;" value="5,8,11,">9
+				</option><option style="background-color:pink;" value="5,8,11,">dom/7.
+				</option><option style="background-color:pink;" value="5,8,11,2,">7b9
+				</option><option style="background-color:pink;" value="5,8,11,3,6,">11
+				</option><option style="background-color:pink;" value="5,8,11,3,7,">9#11
+				</option><option style="background-color:pink;" value="5,8,11,3,9,">9b13
+				</option><option style="background-color:pink;" value="5,8,11,3,10,">13
+				</option><option style="background-color:pink;" value="5,8,11,4,">7#9
+				</option><option style="background-color:pink;" value="5,8,11,6,">dom/7./add11
+				</option><option style="background-color:pink;" value="5,8,11,10,">dom/7./add13
+				</option><option style="background-color:pink;" value="5,8,12,">maj7.
+				</option><option style="background-color:pink;" value="5,8,12,">maj9
+				</option><option style="background-color:pink;" value="5,8,12,3,6,">maj11
+				</option><option style="background-color:pink;" value="5,8,12,3,10,">maj13
+				</option><option style="background-color:pink;" value="5,8,12,6,">maj7./add11
+				</option><option style="background-color:pink;" value="5,8,12,10,">maj7./add13
+				</option><option style="background-color:pink;" value="5,9,11,">7#5
+				</option><option style="background-color:pink;" value="5,9,11,2,">7#5b9
+				</option><option value="6,8,">Sus 4
+				</option><option value="6,8,10,">6sus4
+				</option><option value="6,8,11,">7sus4
+				</option><option value="6,8,11,3,">9sus4
+				</option><option value="6,8,12,">maj7. Sus4
+				</option><option value="6,8,12,3,">maj9 Sus4
+				</option><option value="8,">5
+				</option>
+			</select>
+		</div>				
+			<br><select name="scale" size="1"onchange="go()" onfocus="document.keyform.cordscal[1].checked = 1; go()">
+								 <option value="2212221" selected="">Major Scales
+				</option><option value="2122221">Minor scales
+				</option><option value="2122131">Harmonic Minor
+				</option><option value="2122221">Melodic Minor
+				</option><option value="23223">Pentatonic Major
+				</option><option value="32232">Pentatonic Minor
+				</option><option value="32113">Pentatonic Blues
+				</option><option value="2323">Pentatonic Neutral
+				</option><option value="2212221">Ionian
+				</option><option value="32122122">Aeolian
+				</option><option value="2122212">Dorian
+				</option><option value="2212212">Mixolydian
+				</option><option value="1222122">Phrygian
+				</option><option value="2221221">Lydian
+				</option><option value="1221222">Locrian
+				</option><option value="1212121">Dim half
+				</option><option value="2121212">Dim whole
+				</option><option value="22222">Whole
+				</option><option value="31313">Augmented
+				</option><option value="111111111111">Chromatic
+				</option><option value="2131212">Roumanian Minor
+				</option><option value="1312122">Spanish Gypsy
+				</option><option value="321132">Blues
+				</option><option value="22323">Diatonic
+				</option><option value="1312131">Double Harmonic
+				</option><option value="12111222">Eight Tone Spanish
+				</option><option value="1322211">Enigmatic
+				</option><option value="222211">Leading Whole Tone
+				</option><option value="2222121">Lydian Augmented
+				</option><option value="1222221">Neoploitan Major
+				</option><option value="1222122">Neopolitan Minor
+				</option><option value="12341">Pelog
+				</option><option value="222312">Prometheus
+				</option><option value="132312">Prometheus Neopolitan
+				</option><option value="131313">Six Tone Symmetrical
+				</option><option value="1212222">Super Locrian
+				</option><option value="2221122">Lydian Minor
+				</option><option value="2131122">Lydian Diminished
+				</option><option value="211211121">Nine Tone Scale
+				</option><option value="21212121">Auxiliary Diminished
+				</option><option value="222222">Auxiliary Augmented
+				</option><option value="12121212">Auxiliary Diminished Blues
+				</option><option value="2211222">Major Locrian
+				</option><option value="2221212">Overtone
+				</option><option value="1212222">Diminished Whole Tone
+				</option><option value="2122122">Pure Minor
+				</option><option value="232212">Dominant 7th
+				</option>
+			</select>
+				full:<input type="CHECKBOX" value="off" name="lingerscal" onclick="go()">
+			<br>Or/<input type="radio" name="cordscal" value="2" onclick="document.keyform.forminput.focus();"><b>Enter Formula as</b>
+			<br>#s<input type="radio" name="notesnum" value="0" checked="">
+				Notes<input type="radio" name="notesnum" value="1">
+				Scale<input type="radio" name="notesnum" value="2">
+			<br><input type="text" name="forminput" width="15" style="background-color:lightyellow;"
+						onfocus=" document.keyform.formdisp.value = &#39;&#39;; document.keyform.cordscal[2].checked = 1;"
+						onchange="simKeyPress();" ><input type="button" value="DisPLAY" name="goinput" onclick="go(); simKeyPress();">
+			<br><i style="font-size:12px; margin-left: 10px;">in C enharmonics.</i>
+			<br><input type="text" name="formdisp" width="16" style="background-color:aqua;font-weight:800;"
+						onfocus="simKeyPress();" >
+			<br><br>
+	</form>
+	</div>
+	<script language="JavaScript">var myvari=myvarb="", ips=incr2=0; //chord selector..
+		function go() {ips = 0; //1-start
+				if (document.keyform.cordscal[0].checked == 1) {
+					x = document.keyform.chordformula.options.selectedIndex;
+					chordcode = document.keyform.chordformula.options[x].value;
+					dispch(chordcode);
+					myvari = myvarb = chordcode;
+				}
+				else if (document.keyform.cordscal[1].checked == 1) { scalecalc();}
+				else if (document.keyform.cordscal[2].checked == 1) {
+					if (document.keyform.notesnum[2].checked == 1) { scalecalc(); }
+					else {ConvertInput();dispch(chordcode);myvari = myvarb = chordcode;}
+				}
+		}
+		function dispch(formulatext) {//2-
+			z = document.keyform.chordselector.options.selectedIndex; root = document.keyform.chordselector.options[z].value;
+			if (document.keyform.notesnum[2].checked != 1) { //if chord
+				if (formulatext.charAt(0) != "1") {	userinput = document.keyform.forminput.value;
+					if (document.keyform.cordscal[2].checked == 1) { if (userinput.charAt(0) != "1") { a = Number.NaN;}}
+					else { a = parseFloat(root) + 12; }
+				}else {a = Number.NaN;}
+			}
+			forStrng = "";
+			playnote(a);
+			if (document.keyform.cordscal[2].checked == 1) {
+					if (document.keyform.notesnum[1].checked != 1) { a = parseFloat(root) + 12; } else { a = 13; }
+			}
+			else { a = parseFloat(root) + 12;}
+			b = 0; d = formulatext.length/2;
+			for (var i = 0; i < d; i++) { // place chord  or scale..
+				b = formulatext.indexOf(",")
+				myvar = parseFloat(formulatext.substring(0, b)) + a - 1
+				playnote(myvar);
+				formulatext = formulatext.substring(b + 1 , formulatext.length)
+			}
+			dispstring = forStrng.substring(0, (forStrng.length - 1));
+			document.keyform.formdisp.value = dispstring;
+		}
+		function playnote(note) {//3-formstring and show.
+			if (note ==  1){forStrng = forStrng + 'C.2,';	}
+			if (note ==  2){forStrng = forStrng + 'C#.2,';	}
+			if (note ==  3){forStrng = forStrng + 'D.2,';	}
+			if (note ==  4){forStrng = forStrng + 'D#.2,';	}
+			if (note ==  5){forStrng = forStrng + 'E.2,';	}
+			if (note ==  6){forStrng = forStrng + 'F.2,';	}
+			if (note ==  7){forStrng = forStrng + 'F#.2,';	}
+			if (note ==  8){forStrng = forStrng + 'G.2,';	}
+			if (note ==  9){forStrng = forStrng + 'G#.2,';	}
+			if (note == 10){forStrng = forStrng + 'A.2,';	}
+			if (note == 11){forStrng = forStrng + 'A#.2,';	}
+			if (note == 12){forStrng = forStrng + 'B.2,';	}
+			if (note == 13){forStrng = forStrng + 'C.3,';	}
+			if (note == 14){forStrng = forStrng + 'C#.3,';	}
+			if (note == 15){forStrng = forStrng + 'D.3,';	}
+			if (note == 16){forStrng = forStrng + 'D#.3,';	}
+			if (note == 17){forStrng = forStrng + 'E.3,';	}
+			if (note == 18){forStrng = forStrng + 'F.3,';	}
+			if (note == 19){forStrng = forStrng + 'F#.3,';	}
+			if (note == 20){forStrng = forStrng + 'G.3,';	}
+			if (note == 21){forStrng = forStrng + 'G#.3,';	}
+			if (note == 22){forStrng = forStrng + 'A.3,';	}
+			if (note == 23){forStrng = forStrng + 'A#.3,';	}
+			if (note == 24){forStrng = forStrng + 'B.3,';	}
+			if (note == 25){forStrng = forStrng + 'C.4,';	}
+			if (note == 26){forStrng = forStrng + 'C#.4,';	}
+			if (note == 27){forStrng = forStrng + 'D.4,';	}
+			if (note == 28){forStrng = forStrng + 'D#.4,';	}
+			if (note == 29){forStrng = forStrng + 'E.4,';	}
+			if (note == 30){forStrng = forStrng + 'F.4,';	}
+			if (note == 31){forStrng = forStrng + 'F#.4,';	}
+			if (note == 32){forStrng = forStrng + 'G.4,';	}
+			if (note == 33){forStrng = forStrng + 'G#.4,';	}
+			if (note == 34){forStrng = forStrng + 'A.4,';	}
+			if (note == 35){forStrng = forStrng + 'A#.4,';	}
+			if (note == 36){forStrng = forStrng + 'B.4';		}
+		}function openhelp() {remote = window.open("help.html","remotewin","width=350,height=400,scrollbars=yes");}
+		//
+		function scalecalc(){scaletext = scaletext1 = scaletext2 = scaletext3 = ""; u = 1; t = 0; i = 0;
+			if (document.keyform.cordscal[1].checked == 1) {
+				x = document.keyform.scale.options.selectedIndex;
+				scalevalue = document.keyform.scale.options[x].value.toUpperCase()
+			}
+			else if (document.keyform.cordscal[2].checked == 1) {
+				if (document.keyform.notesnum[2].checked == 1) {scalevalue = document.keyform.forminput.value.toUpperCase();}
+				else {scalevalue = document.keyform.forminput.value.toUpperCase();}
+			}
+			var check;
+			for (var y = 0; y < scalevalue.length; y++) {
+				check=0;
+				if (scalevalue.charAt(y) == "1") { t = 1 + u;check=1; }
+				else if (scalevalue.charAt(y) == "2") { t = 2 + u;check=1; }
+				else if (scalevalue.charAt(y) == "3") { t = 3 + u;check=1; }
+				else if (scalevalue.charAt(y) == "4") { t = 4 + u;check=1; }
+				else if (scalevalue.charAt(y) == "5") { t = 5 + u;check=1; }
+				else if (scalevalue.charAt(y) == "6") { t = 6 + u;check=1; }
+				else if (scalevalue.charAt(y) == "7") { t = 7 + u;check=1; }
+				else if (scalevalue.charAt(y) == "8") { t = 8 + u;check=1; }
+				else if (scalevalue.charAt(y) == "9") { t = 9 + u;check=1; }
+				if (check==1){ scaletext = scaletext +  t + ",";
+					scaletext1 = scaletext1 +  (t - 12) + ",";
+					scaletext2 = scaletext2 +  (t + 12) + ",";
+					scaletext3 = scaletext3 +  (t - 24) + ",";
+				}
+				u = t
+			}
+			if (document.keyform.lingerscal.checked == 1) {	totalscale =  scaletext + scaletext1 + scaletext3 + scaletext2;}
+			else {totalscale = scaletext;}
+			dispch(totalscale);
+		}
+		function inverter() {
+		ndums = (ips*2) + incr2
+					if (ndums >= myvarb.length) {
+					ndums = 0
+					ips = -1
+					myvari = myvarb
+					incr2= 0
+					}
+					else {
+							 if (myvarb.charAt(ndums +1) != ","){
+									chartf = myvarb.substring(ndums, (myvarb.indexOf(",")+ ndums +1))
+									incr = 2
+									incr2= 1
+							 }
+							 else {
+									chartf = myvarb.substring(ndums, (myvarb.indexOf(",")+ ndums))
+									incr = 1
+									incr2= 0
+							 }
+							 tochange = parseFloat(chartf) 
+							 myvari = myvarb.substring(0, ndums) + (tochange - 12) + myvarb.substring((ndums + incr), myvarb.length)
+					}
+		dispch(myvari);
+		ips ++
+		}
+		///
+	</script>
+	<script>
+		var keyCodeBinding={	// Key bindings, notes to keyCodes.
+		 'A#,1':  	[ 37,  'lft'],
+		 'B,1':   	[ 39,  'rgt'],
+		 'A#,-2': 	[ 48,  '0' ],
+		 'C#,-2': 	[ 49,  '1' ],
+		 'D,-2':  	[ 50,  '2' ],
+		 'D#,-2': 	[ 51,  '3' ],
+		 'E,-2':  	[ 52,  '4' ],
+		 'F,-2':  	[ 53,  '5' ],
+		 'F#,-2': 	[ 54,  '6' ],
+		 'G,-2':  	[ 55,  '7' ],
+		 'G#,-2': 	[ 56,  '8' ],
+		 'A,-2':  	[ 57,  '9' ],
+		 'C#,0':  	[ 65,  'A' ],
+		 'E,1':   	[ 66,  'B' ],
+		 'D,1':   	[ 67,  'C' ],
+		 'D#,0':  	[ 68,  'D' ],
+		 'D#,-1': 	[ 69,  'E' ],
+		 'E,0':   	[ 70,  'F' ],
+		 'F,0':   	[ 71,  'G' ],
+		 'F#,0':  	[ 72,  'H' ],
+		 'G#,-1': 	[ 73,  'I' ],
+		 'G,0':   	[ 74,  'J' ],
+		 'G#,0':  	[ 75,  'K' ],
+		 'A,0':   	[ 76,  'L' ],
+		 'F#,1':  	[ 77,  'M' ],
+		 'F,1':   	[ 78,  'N' ],
+		 'A,-1':  	[ 79,  'O' ],
+		 'A#,-1': 	[ 80,  'P' ],
+		 'C#,-1': 	[ 81,  'Q' ],
+		 'E,-1':  	[ 82,  'R' ],
+		 'D,0':   	[ 83,  'S' ],
+		 'F,-1':  	[ 84,  'T' ],
+		 'G,-1':  	[ 85,  'U' ],
+		 'D#,1':  	[ 86,  'V' ],
+		 'D,-1':  	[ 87,  'W' ],
+		 'C#,1':  	[ 88,  'X' ],
+		 'F#,-1': 	[ 89,  'Y' ],
+		 'C,1':   	[ 90,  'Z' ],
+		 'A#,0':  	[186,  'dco' ],
+		 'C,-1':  	[187,  'equ' ],  
+		 'G,1':   	[188,  'com' ],
+		 'B,-2':  	[189,  'min' ],
+		 'G#,1':  	[190,  'dot' ],
+		 'A,1':   	[191,  'slh' ],
+		 'C,-2':  	[192,  'apx' ],
+		 'B,-1':  	[219,  'lar' ],
+		 'C,0':   	[221,  'rar' ],
+		 'B,0':   	[222,  'thn'],
+		};
+		
+		function dsply_frm(id){ var dsp=document.getElementById(id+'_frame').style;
+			if(dsp.display=="block"){document.getElementById(id+'_frame').style.display ="none";return;}
+			dsp.display ="block";
+		}
+		/// simulate clicks 
+		function simKeyPress() { var chord=document.keyform.formdisp.value; ///////// good outcomes
+			if(chord){ 
+				var x=chord.split(',');
+				console.log(keyCodeBinding,x,'split ex:',x[0],x[1]);
+				var arrNotes=[];
+				for (i=0; i<x.length; i++) {
+					arrNotes[i]=x[i].replace('.', ',').replace('2', '-1').replace('3', '0').replace('4', '1');
+					console.log('chord:'+arrNotes[i],'kbb:',keyCodeBinding[arrNotes[i]][0],keyCodeBinding[arrNotes[i]][1]);
+					play_chords(keyCodeBinding[arrNotes[i]][0],2000);
+				}
+				//for (i=0; i<keyCodeBinding.length; i++) {
+					//console.log('kbb',keyCodeBinding[i]);
+				//}
+			}
+			//play_chords(65);
+		}
+		//////////////////////////////////////////////////////////////////////////
+		/// _drag dom Elements
+		_dragElement(document.getElementById("chordform"),document.getElementById("chordform_on")); //Make the DIV element draggagle (elm with dragersection)
+	</script>	
+
+
+
+</body>
+</html>
