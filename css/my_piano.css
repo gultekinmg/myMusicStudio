@@ -1,0 +1,37 @@
+/*sampled piano*/
+*,*::after,*::before {-webkit-box-sizing: border-box; box-sizing: border-box;}
+
+/* === General Demo Styles === */
+body { font-family: 'Avenir Next', 'Avenir', 'Helvetica Neue', 'Lato', 'Segoe UI', Helvetica, Arial, sans-serif;
+			color: #2d2e36; background: #c2ccd4; -webkit-font-smoothing: antialiased;
+			-moz-osx-font-smoothing: grayscale;}
+a {text-decoration: none;color: #8e8f9a;outline: none;}
+a:hover,a:focus {color: #2d2e36;outline: none;}
+audio {display: none;}
+p{height: 1.2; margin-top: -2px;}
+.active, .btn:hover {background-color: #666; color: white;}
+
+#pianoKeyboard{position: fixed; left: 0px; top: 10px; height:10em;}
+.set	{padding-left: 25px; font-size: large;}
+.set, .guitar{ height:5.5em; width:105%; position:relative; border:1px solid #160801; border-radius:1em;
+/*background:linear-gradient(to bottom right,rgba(7,7,7,0.3),rgba(7,7,7,0)),url(../img/vwood.png);*/
+	box-shadow:0 0 50px rgba(7,7,7,0.5) inset,0 1px rgba(212,152,125,0.2) inset,0 5px 15px rgba(7,7,7,0.5)}
+.set li {list-style:none; position:relative; float:left; font-size: smaller;}/*..............*/
+	.set li:first-child { border-radius:5px 0 5px 5px}
+	.set li:nth-child(12n+1) {background: lightyellow;}
+	.set li:nth-child(40) {background: yellow;}
+	.set li:last-child { border-radius:0 5px 5px 5px}
+.white{ height:5.3em; width:1.8em; z-index:1; border-left:1px solid #bbb; border-bottom:1px solid #bbb; border-radius:0 0 5px 5px;
+				box-shadow:-1px 0 0 rgba(255,255,255,0.8) inset,0 0 5px #ccc inset,0 0 3px rgba(7,7,7,0.2);
+				background:linear-gradient(to bottom,#eee 0%,#fff 100%)}
+.white:active{ border-left:1px solid #999; border-bottom:1px solid #999; border-top:1px solid #777;
+				box-shadow:2px 0 3px rgba(7,7,7,0.1) inset,-5px 5px 20px rgba(7,7,7,0.2) inset,0 0 3px rgba(7,7,7,0.2);
+				background:lightyellow;}
+.black{ height:3em; width:1.1em; margin:0 0 0 -1em; z-index:2; border:1px solid #000; border-radius:0 0 3px 3px;
+				box-shadow:-1px -1px 2px rgba(255,255,255,0.2) inset,0 -5px 2px 3px rgba(7,7,7,0.6) inset,0 2px 4px rgba(7,7,7,0.5);
+				background:linear-gradient(45deg,#222 0%,#555 100%)}
+.black:active{background:linear-gradient(to right,#444 0%,#222 100%)
+				box-shadow:-1px -1px 2px rgba(255,255,255,0.2) inset,0 -2px 2px 3px rgba(7,7,7,0.6) inset,0 1px 2px rgba(7,7,7,0.5);}
+.d,.a,.e,.g,.b { margin:0 0 0 -0.5em} .f,.c{ margin:0 0 0 -0.35em}
+.fake_hover {color: red; outline: none; opacity: 0.5;}/**/
+

@@ -1,0 +1,46 @@
+/*sampled piano*/
+*,*::after,*::before {-webkit-box-sizing: border-box; box-sizing: border-box;}
+
+/* === General Demo Styles === */
+body { font-family: 'Avenir Next', 'Avenir', 'Helvetica Neue', 'Lato', 'Segoe UI', Helvetica, Arial, sans-serif;
+			color: #2d2e36; background: #c2ccd4; -webkit-font-smoothing: antialiased;
+			-moz-osx-font-smoothing: grayscale;}
+a {text-decoration: none;color: #8e8f9a;outline: none;}
+a:hover,a:focus {color: #2d2e36;outline: none;}
+audio {display: none;}
+p{height: 1.2; margin-top: -2px;}
+.active, .btn:hover {background-color: #666; color: white;}
+
+
+#mySoundBoard{width:940px;  border-radius:9px; float: left;}
+#mymixerBoard{width:170px;  border-radius:9px; float: left;margin-left: -9px;
+background:linear-gradient(to bottom,#eee 0%,#fff 100%) 
+}
+.shade{box-shadow:0 0 50px rgba(7,7,7,0.5) inset,0 1px rgba(212,152,125,0.2) inset,0 5px 15px rgba(7,7,7,0.5);}	
+.mixers{margin-right: 12px; margin-top: 4px; float: right;}
+ul{margin-left: 10px;
+	height:120px; width:920px; position:relative; border:2px solid gray; border-radius:10px;
+	/*	background:linear-gradient(to bottom right,rgba(7,7,7,0.3),rgba(7,7,7,0)),url(../Audio/assets/scary/piano.png);*/
+}
+li{
+	list-style:none; position:relative; float:left; font-size: 14px; color: white;
+	height:96px; width:96px; margin:6px 30px 0 -20px; z-index:1; border-left:1px solid #bbb; border-radius:9px;
+	box-shadow:-1px 0 0 rgba(255,255,255,0.8) inset,0 0 5px #ccc inset,0 0 3px rgba(7,7,7,0.2);
+	/* */}
+	li:nth-child(5) {margin-left: 0px;}
+li:active{
+	height:108px;
+	border-left:1px solid #999; border-bottom:1px solid #999; border-top:1px solid #777;
+	box-shadow:2px 0 3px rgba(7,7,7,0.1) inset,-5px 5px 20px rgba(7,7,7,0.2) inset,0 0 3px rgba(7,7,7,0.2);
+	background:pink;}
+.fake_hover {color: red; outline: none; opacity: 0.5;}/**/
+
+/* .smiley{width:96px; height:96px; border: solid 2px red; } */
+.flash{width:96px; height:110px; /* border:0; */ 
+		animation: blink 1s linear infinite;}
+
+@keyframes blink{
+0%{opacity: 0;}
+50%{opacity: .5;}
+100%{opacity: 1;}
+}

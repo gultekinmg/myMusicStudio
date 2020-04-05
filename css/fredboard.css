@@ -1,0 +1,45 @@
+	body { height:100%; /* font-family: Verdana, Helvetica, sans-serif; color:#444444;  */}
+	a:link {color:#4B2EDE;text-decoration:none;}      /* unvisited link */
+	a:visited {color:#4B2EDE;text-decoration:none;}  /* visited link */
+	a:hover {color:#9D90DC;text-decoration:none;}  /* mouse over link */
+	a:active {color:#FFA04D;text-decoration:none;}  /* selected link */
+
+	#content { margin-left:auto; margin-right:auto; width:740px; zoom: .9;/* font-size:14px; */ }
+	#githublink { position:absolute; top:5px; right:5px; }
+	#title { text-align:center; font-size:34px; }
+	#subtitle { text-align:center; font-size:16px; }
+
+	.fredy { zoom: .9; cursor: pointer; margin-top: 2px; font-size: small; /* font-family:Verdana; font-size:11px; */ }
+	#chordboard{background: #9a795c; }
+	#scaleboard{background: #9a795c; }
+	#frets text{ stroke:lightyellow; stroke-width:0.5; font-size: 12px;}
+	#frets line{ stroke:lightyellow; stroke-width:2; stroke-opacity:0.6;}
+	#frets rect{ fill:white; fill-opacity:0.2; stroke:pink; stroke-width:2; stroke-opacity:0.5;}
+	.string line{ stroke:silver; stroke-opacity:0.3}
+	.opennote{font-size:14px; stroke:lightyellow;}
+	.noteChord{ r: 13; fill:yellow; fill-opacity:0.8; stroke:black; stroke-width:1;}
+	.noteScale{ r: 13; fill:lightgreen; fill-opacity:0.7; stroke:darkgreen; stroke-width:1;}
+	.ScaleChords{fill:orange; r:13;	fill-opacity:0.6; stroke:blue; /*stroke-width:2; stroke-opacity:1;*/	}
+	.song{r:12; stroke:black; fill: #d3d842; fill-opacity: 0.6;}
+	.noteText{/* font-family:Verdana;  font-size:15px;*/}
+	
+	#schema{display:none;}
+	.flash{fill:orange; r:16;	fill-opacity:1; stroke:blue; /*stroke-width:2; stroke-opacity:1;*/	}
+	
+	div.heading {margin-top:10px;}
+	/*
+	#chordboard circle.note { fill:rgb(247,148,89); fill-opacity:1; }
+	#scaleboard circle.note { fill:rgb(143,154,249); fill-opacity:1; }
+	*/
+	#scaleinfo, #chordinfo { font-size:16px; text-align:center; float: right;}
+	select { padding: 1px 8px; }
+	#progdiv {background: #e8f9d9; margin-top: 11px; float:left; cursor: pointer;}
+	#progtable { border:none; border-collapse:collapse; margin: 0 auto 0 auto; }
+	#progtable tr#divider { border-bottom:solid 1px #444444; }
+	#progtable tr#divider :hover { background-color: red;
+}
+	#progtable td { min-width:50px; }
+	#progtable td.label { min-width:75px; }
+	#progselectors {float: right;}
+	
+	#II,III (display:none;)

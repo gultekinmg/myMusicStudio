@@ -1,0 +1,49 @@
+	body { height:100%; /* font-family: Verdana, Helvetica, sans-serif; color:#444444;  */}
+	a:link {color:#4B2EDE;text-decoration:none;}      /* unvisited link */
+	a:visited {color:#4B2EDE;text-decoration:none;}  /* visited link */
+	a:hover {color:#9D90DC;text-decoration:none;}  /* mouse over link */
+	a:active {color:#FFA04D;text-decoration:none;}  /* selected link */
+	#content { margin-left:auto; margin-right:auto; width:820px; zoom: 1;/* font-size:14px; */ }
+	#githublink { position:absolute; top:5px; right:400px; font-size: 12px;}
+	#title { margin-top:-18px; margin-bottom:-22px; text-align:center; font-size: 3.5em; color: #9999ff; text-shadow: 1px 2px 3px black; }
+	#subtitle { text-align:center; font-size:16px; }
+
+	.fredy {margin-top: 0px;}
+	#chordboard{background: #79583c85; }/* 9a795c */
+	#frets {pointer-events:none;}	
+	#frets text{ stroke-opacity:0.6; font-size: 12px;}
+	#frets line{ stroke:lightyellow; stroke-opacity:0.6;}
+	#frets rect{ fill:white; fill-opacity:0.2; stroke:pink; stroke-width:2; stroke-opacity:0.5;}
+	#frets circle{ fill:yellow; fill-opacity:0.8; stroke:black; stroke-opacity:0.6;}
+	.opennote{stroke:yellow; stroke-opacity:0.4; stroke-width:4;}
+	#chords .string line{ stroke:silver; stroke-opacity:0.3}
+	#chords text{z-index:3; pointer-events:none;}	
+	.noteChord{ r: 13; fill:yellow; fill-opacity:0.8; stroke:black; stroke-width:1; cursor: pointer;}
+	.noteScale{ r: 13; fill:green; fill-opacity:0.5; cursor: pointer;}
+	#scale text{z-index:3; stroke:black; pointer-events:none;}	
+	.Progress_Chords{fill:orange; r:11;	fill-opacity:1; stroke:blue; cursor: pointer;}/*stroke-width:2; stroke-opacity:1;*/	
+	#progress text{z-index:3; pointer-events:none;}	
+	.song{r:13; stroke:black; fill: #ffa04d; fill-opacity: 1;}
+	.flash{fill:orange; r:16;	fill-opacity:1; stroke:blue; /*stroke-width:2; stroke-opacity:1;*/	}
+	#chart text {pointer-events:none;}	
+	
+	div.heading {margin-top:5px;}
+	#scaleinfo, #chordinfo { font-size:16px; text-align:center; float: right;}
+	#chordinfo {margin-top: -18px;}
+	select { padding: 1px 8px; border: 1px solid #999;color: #1c87c9;background-color: #eee; border-radius: 5px;box-shadow: 4px 4px #ccc; font-size: large;}
+	#chordroot{ border-radius:0px;	color:#1c87c9;background-color:#eee; margin: -5px -16px -35px 0px; font-size:22px;}/* background-color:transparent; */
+	#chordselector select option { display:inline-block;}
+	#chordselector { display:inline-block; vertical-align:top; overflow:hidden;}
+	#progdiv {background: #e8f9d9; margin-top: 0px; float:left; cursor: pointer;}
+	#progtable { border:none; border-collapse:collapse; margin: 0 auto 0 auto; font-size: 12px;}
+	#progtable tr#divider { font-size: 14px; /* border-bottom: solid 1px #444444; */ }
+	/* #progtable tr#divider :hover { background-color: red;} */
+	#pattern1,#pattern2,#pattern3,#pattern4,#pattern5,#pattern6,#pattern7 {  border: 1px solid black;
+    background: -webkit-gradient( linear, left top, left bottom, color-stop(0.05, #ededed), color-stop(1, #dfdfdf) ); }
+	#pattern1:hover ,#pattern2:hover ,#pattern3:hover ,#pattern4:hover ,#pattern5:hover ,#pattern6:hover ,
+		#pattern7:hover { background: pink;}
+	#progtable td { min-width:40px; }
+	#progtable td.label { min-width:60px; }
+	#progselectors {float: right;}
+	
+	#schema, #scale, #progress{display:none;}
