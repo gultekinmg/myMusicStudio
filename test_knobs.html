@@ -1,0 +1,94 @@
+<html>
+<head>
+  <meta charset="utf-8">
+  <link href="https://fonts.googleapis.com/css?family=Open+Sans" rel="stylesheet">
+  <script src="./vendors/input-knobs.js"></script>
+	<script>window.inputKnobsOptions={}///glob</script>
+</head>
+<body style="background:#498; margin:0;padding:0;">
+<div id="contents">
+  <h2>Knob Samples</h2>
+	<textarea id="log1" cols="50" rows="2" style=" position: fixed; top: 0px; right: 155px;">Events Handling</textarea>
+  <h4>With Multi Frame External Image</h4>
+  <ul lang="en">
+    <li><a href="http://www.g200kg.com/en/software/knobman.html">JKnobMan</a> -- Java based Knob image creation tool.</li>
+    <li><a href="http://www.g200kg.com/en/webknobman/">WebKnobMan</a> -- WebApp version of the JknobMan</li>
+    <li><a href="http://www.g200kg.com/en/webknobman/gallery.php">KnobGallery</a> -- knob data sharing space</li>
+  </ul>
+  <br clear="both"/>
+	knob
+  <input type="range" class="input-knob" data-src="./img/knobs/knob70.png" data-sprites="100"/>
+  <input type="range" class="input-knob" data-diameter="32" data-src="./img/knobs/knob70.png" data-sprites="100"/>
+  <input type="range" class="input-knob" min="-10" max="10" step="0.1"
+		oninput="addText(log1,'\'input\' this.value='+this.value+'\n')"
+		onchange="addText(log1,'\'change\' this.value='+this.value+'\n')"
+		data-sprites="100" data-diameter="80" data-src="./img/knobs/knob70.png"/>
+	<input type="range" class="input-knob" min="-10" max="10" step="0.1"
+		data-sprites="100" data-diameter="80" data-src="./img/knobs/KNB_metal_yellow_L.png"/>
+	<input type="range" class="input-knob" min="-10" max="10" step="0.1"
+		oninput="addText(log1,'\'input\' this.value='+this.value+'\n')"
+		onchange="addText(log1,'\'change\' this.value='+this.value+'\n')"
+		data-sprites="100" data-diameter="80" data-src="./img/knobs/KNB_metal_silver.png"/>
+  <input type="range" class="input-knob"
+		data-sprites="126" data-diameter="80" data-src="./img/knobs/knob_filter.png" />
+	<input type="range" class="input-knob"
+		data-sprites="100" data-diameter="80" data-src="./img/knobs/knob_Silhouettes_100.png"/>
+
+	<br/>
+	Slider
+	<input type="range" class="input-slider"
+		data-width="100" data-height="40" data-sprites="50" data-src="./img/knobs/slider3.png"/>
+	<input type="range" class="input-slider"
+		data-width="40" data-height="120" data-sprites="63" data-src="./img/knobs/slider_mixer.png"/>
+	<input type="range" class="input-slider"
+		data-width="40" data-height="120" data-sprites="200" data-src="./img/knobs/slider_Fader_red.png"/>
+
+	<br/>
+	radio-switch
+	<input type="radio" name="g1" class="input-switch" data-src="./img/knobs/switch_offon.png" data-diameter="40"/>
+	<input type="radio" name="g1" class="input-switch" data-src="./img/knobs/switch_offon.png" data-diameter="60" checked/>
+	<input type="radio" name="g1" class="input-switch" data-src="./img/knobs/switch_offon.png" data-diameter="20"/>
+	switch
+	<input type="checkbox" name="groupA" class="input-switch"
+		onchange="addText(log1,'\'change\' this.checked='+this.checked+'\n')"
+		data-src="./img/knobs/switch_offon.png" data-diameter="100"/>
+		
+	<input type="checkbox" name="pinkponk" class="input-switch"
+		onchange="addText(log1,state('Turned',this.checked))"
+		data-width="60" data-height="40" data-src="./img/knobs/pinkponk-ON-OFF.png"/>
+		
+	<input type="checkbox" name="groupA" class="input-switch"
+		onchange="addText(log1,'\'change\' this.checked='+this.checked+'\n')"
+		data-src="./img/knobs/switch_toggle.png" data-diameter="40"/>
+  <hr/>
+	other
+	<input type="range" class="input-slider"
+		data-width="120" data-height="80" data-sprites="8" data-src="./img/knobs/meter_gold9.png"/>
+	<input type="range" class="input-slider"
+		data-width="120" data-height="60" data-sprites="31" data-src="./img/knobs/meter_blue.png"/>
+	<input type="range" class="input-knob"
+		data-sprites="33" data-diameter="32" data-src="./img/knobs/SPEAKER.png"/>
+  <input type="range" class="input-knob"
+	 data-sprites="30" data-diameter="32" data-src="./img/knobs/knb_Speaker.png"/>
+  <input type="range" class="input-knob"
+	 data-sprites="10" data-src="./img/knobs/led2.png"/>
+	 
+  <input type="range" class="input-knob"
+	 data-sprites="100" data-width="30" data-height="140" data-src="./img/knobs/bender100.png"/>
+
+	
+	<br/>
+
+	<script>
+			function addText(el,txt){	txt=el.value+txt;
+				let rows=txt.split("\n");
+				if(rows.length>el.rows)rows.shift();
+				el.value=rows.join("\n");
+			}
+			function state(lbl,wtf){
+				if(wtf) return '\n'+lbl+': ok'; else return '\n'+lbl+': off';
+			}
+	</script>
+	
+</body>
+</html>
