@@ -1,7 +1,7 @@
 # myMusicStudio
 web desktop for instrument frames most forked and extended at branches to demonstrate music theory in all bases.
 
-<a href="https://gultekinmg.github.io/GuiltyKing/WebRTC/voicefont/">![scrshot](https://github.com/gultekinmg/myMusicStudio/sample.PNG)</a>
+<a href="https://gultekinmg.github.io/GuiltyKing/WebRTC/voicefont/">![scrshot](https://github.com/gultekinmg/myMusicStudio/blob/master/sample.PNG)</a>
 
 ## gathering all branches, may take a awhile to avoid daily updates.
 All branches gotto be framed to form a Visiual Music Studio.
