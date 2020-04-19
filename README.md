@@ -10,3 +10,5 @@ But you can try yet those unordered pages now till then.
 I Try coding all in pure javascript for offline process. but iframe cors policy force me use a location.	
 perhaps users may need to use a small local pretenter such as mongo.	
 webaudiofontdata is a synthfont2 sound font collection indexed for easier handle forked from github.
+![scrshot](https://github.com/gultekinmg/myMusicStudio/blob/master/img/keypanel.PNG)
+![scrshot](https://github.com/gultekinmg/myMusicStudio/blob/master/img/sboard.PNG)
