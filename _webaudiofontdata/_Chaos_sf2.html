@@ -1,0 +1,160 @@
+<html>
+	<head>
+		<script src="../WebAudioFontPlayer.js"></script>
+		<link rel="stylesheet" type="text/css" href="../keyboard.css">
+		<script src="_Chaos_sf2.js"></script>
+		<script>var selectedPreset=_tone_0000_Chaos;</script>
+	</head>
+	<body>
+		<p>Soundfile: _Chaos_sf2.js</p>
+		<strong>instruments:&nbsp;</strong>
+		<div class="chordselector">
+			<select id="instruments" onchange="
+					var x = this.selectedIndex;
+					selectedPreset=window[this.getElementsByTagName('option')[x].value];
+					init();
+					console.log(selectedPreset);
+			">
+				<option value="_tone_0000_Chaos" >0000_Piano_Acoustic-Grand            </option>
+				<option value="_tone_0010_Chaos" >0010_Piano_Acoustic-Bright           </option>
+				<option value="_tone_0020_Chaos" >0020_Piano_Electric-Grand            </option>
+				<option value="_tone_0030_Chaos" >0030_Piano_Honky-tonk                </option>
+				<option value="_tone_0040_Chaos" >0040_Piano_Electric1                 </option>
+				<option value="_tone_0050_Chaos" >0050_Piano_Electric2                 </option>
+				<option value="_tone_0060_Chaos" >0060_Piano_Harpsichord               </option>
+				<option value="_tone_0070_Chaos" >0070_Piano_Clavinet                  </option>
+				<option value="_tone_0080_Chaos" >0080_ChromaticPercussion_Celesta     </option>
+				<option value="_tone_0090_Chaos" >0090_ChromaticPercussion_Glockenspiel</option>
+				<option value="_tone_0100_Chaos" >0100_ChromaticPercussion_MusicBox    </option>
+				<option value="_tone_0110_Chaos" >0110_ChromaticPercussion_Vibraphone  </option>
+				<option value="_tone_0120_Chaos" >0120_ChromaticPercussion_Marimba     </option>
+				<option value="_tone_0130_Chaos" >0130_ChromaticPercussion_ Xylophone  </option>
+				<option value="_tone_0140_Chaos" >0140_ChromaticPercussion_TubularBells</option>
+				<option value="_tone_0150_Chaos" >0150_ChromaticPercussion_Dulcimer    </option>
+				<option value="_tone_0160_Chaos" >0160_Organ_Drawbar                   </option>
+				<option value="_tone_0170_Chaos" >0170_Organ_Percussive                </option>
+				<option value="_tone_0180_Chaos" >0180_Organ_Rock                      </option>
+				<option value="_tone_0190_Chaos" >0190_Organ_Church                    </option>
+				<option value="_tone_0200_Chaos" >0200_Organ_Reed                      </option>
+				<option value="_tone_0210_Chaos" >0210_Organ_Accordion                 </option>
+				<option value="_tone_0220_Chaos" >0220_Organ_Harmonica                 </option>
+				<option value="_tone_0230_Chaos" >0230_Organ_Accordion_Tango           </option>
+				<option value="_tone_0240_Chaos" >0240_AcousticGuitar_Nylon            </option>
+				<option value="_tone_0250_Chaos" >0250_AcousticGuitar_Steel            </option>
+				<option value="_tone_0260_Chaos" >0260_ElektrikGuitar_jazz             </option>
+				<option value="_tone_0270_Chaos" >0270_ElektrikGuitar_clean            </option>
+				<option value="_tone_0280_Chaos" >0280_ElektrikGuitar_muted            </option>
+				<option value="_tone_0290_Chaos" >0290_ElektrikGuitar_Overdriven       </option>
+				<option value="_tone_0300_Chaos" >0300_ElektrikGuitar_Distortion       </option>
+				<option value="_tone_0310_Chaos" >0310_Guitar Harmonics                </option>
+				<option value="_tone_0320_Chaos" >0320_Bass_Acoustic                   </option>
+				<option value="_tone_0330_Chaos" >0330_Bass_Electric-finger            </option>
+				<option value="_tone_0340_Chaos" >0340_Bass_Electric-pick              </option>
+				<option value="_tone_0350_Chaos" >0350_Bass_Fretless                   </option>
+				<option value="_tone_0360_Chaos" >0360_Bass_Slap1                      </option>
+				<option value="_tone_0370_Chaos" >0370_Bass_Slap2                      </option>
+				<option value="_tone_0380_Chaos" >0380_Bass_Synth1                     </option>
+				<option value="_tone_0390_Chaos" >0390_Bass_Synth2                     </option>
+				<option value="_tone_0400_Chaos" >0400_Strings_Violin                  </option>
+				<option value="_tone_0410_Chaos" >0410_Strings_Viola                   </option>
+				<option value="_tone_0420_Chaos" >0420_Strings_Cello                   </option>
+				<option value="_tone_0430_Chaos" >0430_Strings_Contrabass              </option>
+				<option value="_tone_0440_Chaos" >0440_Strings_Tremolo                 </option>
+				<option value="_tone_0450_Chaos" >0450_Strings_Pizzicato               </option>
+				<option value="_tone_0460_Chaos" >0460_Strings_Orchestral-Harp         </option>
+				<option value="_tone_0470_Chaos" >0470_Strings_Timpani                 </option>
+				<option value="_tone_0480_Chaos" >0480_Ensemble_String1                </option>
+				<option value="_tone_0490_Chaos" >0490_Ensemble_String2                </option>
+				<option value="_tone_0500_Chaos" >0500_Ensemble_SynthStrings1          </option>
+				<option value="_tone_0510_Chaos" >0510_Ensemble_SynthStrings2          </option>
+				<option value="_tone_0520_Chaos" >0520_Ensemble_ Choir-Aahs            </option>
+				<option value="_tone_0530_Chaos" >0530_Ensemble_Voice-Oohs             </option>
+				<option value="_tone_0539_Chaos" >0539_Ensemble_soul-ahh               </option>
+				<option value="_tone_0540_Chaos" >0540_Ensemble_Synth-Choir            </option>
+				<option value="_tone_0550_Chaos" >0550_Ensemble_OrchestraHit           </option>
+				<option value="_tone_0560_Chaos" >0560_Trumpet                         </option>
+				<option value="_tone_0570_Chaos" >0570_Trombone                        </option>
+				<option value="_tone_0580_Chaos" >0580_Tuba                            </option>
+				<option value="_tone_0590_Chaos" >0590_Muted_Trumpet                   </option>
+				<option value="_tone_0600_Chaos" >0600_French_Horn                     </option>
+				<option value="_tone_0610_Chaos" >0610_Brass_Section                   </option>
+				<option value="_tone_0620_Chaos" >0620_Synth_Brass1                    </option>
+				<option value="_tone_0630_Chaos" >0630_Synth_Brass2                    </option>
+				<option value="_tone_0640_Chaos" >0640_Reed_SopranoSax                 </option>
+				<option value="_tone_0650_Chaos" >0650_Reed_AltoSax                    </option>
+				<option value="_tone_0660_Chaos" >0660_Reed_TenorSax                   </option>
+				<option value="_tone_0670_Chaos" >0670_Reed_BaritoneSax                </option>
+				<option value="_tone_0680_Chaos" >0680_Reed_Oboe                       </option>
+				<option value="_tone_0690_Chaos" >0690_Reed_EnglishHorn                </option>
+				<option value="_tone_0700_Chaos" >0700_Reed_Bassoon                    </option>
+				<option value="_tone_0710_Chaos" >0710_Reed_Clarinet                   </option>
+				<option value="_tone_0720_Chaos" >0720_Pipe_Piccolo                    </option>
+				<option value="_tone_0730_Chaos" >0730_Pipe_Flute                      </option>
+				<option value="_tone_0740_Chaos" >0740_Pipe_Recorder                   </option>
+				<option value="_tone_0750_Chaos" >0750_Pipe_PanFlute                   </option>
+				<option value="_tone_0760_Chaos" >0760_Pipe_Blownbottle                </option>
+				<option value="_tone_0770_Chaos" >0770_Pipe_Shakuhachi                 </option>
+				<option value="_tone_0780_Chaos" >0780_Pipe_Whistle                    </option>
+				<option value="_tone_0790_Chaos" >0790_Pipe_Ocarina                    </option>
+				<option value="_tone_0800_Chaos" >0800_SynthLead_1(square)             </option>
+				<option value="_tone_0810_Chaos" >0810_SynthLead_2sawtooth             </option>
+				<option value="_tone_0820_Chaos" >0820_SynthLead_3calliope             </option>
+				<option value="_tone_0830_Chaos" >0830_SynthLead_4chiff                </option>
+				<option value="_tone_0840_Chaos" >0840_SynthLead_5charang              </option>
+				<option value="_tone_0850_Chaos" >0850_SynthLead_6(voice)              </option>
+				<option value="_tone_0860_Chaos" >0860_SynthLead_7fifths               </option>
+				<option value="_tone_0870_Chaos" >0870_SynthLead_8basslead             </option>
+				<option value="_tone_0880_Chaos" >0880_SynthPad_1newage                </option>
+				<option value="_tone_0890_Chaos" >0890_SynthPad_2warm                  </option>
+				<option value="_tone_0900_Chaos" >0900_SynthPad_3polysynth             </option>
+				<option value="_tone_0910_Chaos" >0910_SynthPad_4choir                 </option>
+				<option value="_tone_0920_Chaos" >0920_SynthPad_5bowed                 </option>
+				<option value="_tone_0930_Chaos" >0930_SynthPad_6metallic              </option>
+				<option value="_tone_0940_Chaos" >0940_SynthPad_7halo                  </option>
+				<option value="_tone_0950_Chaos" >0950_SynthPad_8sweep                 </option>
+				<option value="_tone_0960_Chaos" >0960_SynthFX_1rain                   </option>
+				<option value="_tone_0970_Chaos" >0970_SynthFX_2soundtrack             </option>
+				<option value="_tone_0980_Chaos" >0980_SynthFX_3crystal                </option>
+				<option value="_tone_0990_Chaos" >0990_SynthFX_4atmosphere             </option>
+				<option value="_tone_1000_Chaos" >1000_SynthFX_5brightness             </option>
+				<option value="_tone_1010_Chaos" >1010_SynthFX_6goblins                </option>
+				<option value="_tone_1020_Chaos" >1020_SynthFX_7echoes                 </option>
+				<option value="_tone_1030_Chaos" >1030_SynthFX_8sci-fi                 </option>
+				<option value="_tone_1040_Chaos" >1040_Ethnic_Sitar                    </option>
+				<option value="_tone_1050_Chaos" >1050_Ethnic_Banjo                    </option>
+				<option value="_tone_1060_Chaos" >1060_Ethnic_Shamisen                 </option>
+				<option value="_tone_1070_Chaos" >1070_Ethnic_Koto                     </option>
+				<option value="_tone_1080_Chaos" >1080_Ethnic_Kalimba                  </option>
+				<option value="_tone_1090_Chaos" >1090_Ethnic_Bagpipe                  </option>
+				<option value="_tone_1100_Chaos" >1100_Ethnic_Fiddle                   </option>
+				<option value="_tone_1110_Chaos" >1110_Ethnic_Shanai                   </option>
+				<option value="_tone_1120_Chaos" >1120_Percussive_TinkleBell           </option>
+				<option value="_tone_1130_Chaos" >1130_Percussive_Agogo                </option>
+				<option value="_tone_1140_Chaos" >1140_Percussive_SteelDrums           </option>
+				<option value="_tone_1150_Chaos" >1150_Percussive_Woodblock            </option>
+				<option value="_tone_1160_Chaos" >1160_Percussive_Taiko                </option>
+				<option value="_tone_1170_Chaos" >1170_Percussive_MelodicTom           </option>
+				<option value="_tone_1180_Chaos" >1180_Percussive_SynthDrum            </option>
+				<option value="_tone_1190_Chaos" >1190_Percussive_ReverseCymbal        </option>
+				<option value="_tone_1200_Chaos" >1200_SoundEffects_GuitarFretNoise    </option>
+				<option value="_tone_1210_Chaos" >1210_SoundEffects_BreathNoise        </option>
+				<option value="_tone_1220_Chaos" >1220_SoundEffects_Seashore           </option>
+				<option value="_tone_1230_Chaos" >1230_SoundEffects_Bird               </option>
+				<option value="_tone_1240_Chaos" >1240_SoundEffects_Telephone          </option>
+				<option value="_tone_1250_Chaos" >1250_SoundEffects_Helicopter         </option>
+				<option value="_tone_1260_Chaos" >1260_SoundEffects_Applause           </option>
+				<option value="_tone_1270_Chaos" >1270_SoundEffects_Gunshot            </option>
+			</select>
+		</div>
+		<p>chords:
+			<a href='javascript:rthm([chord.Am],0);'>Am</a>
+			| <a href='javascript:rthm([chord.C],0);'>C</a>
+			| <a href='javascript:rthm([chord.E],0);'>E</a>
+			| <a href='javascript:rthm([chord.G],0);'>G</a>
+			| <a href='javascript:rthm([chord.Am],0);rthm([chord.C],3);rthm([chord.E],6);rthm([chord.G],9);'>RITHM</a>
+			| <a href='javascript:player.cancelQueue(audioContext);'>stop</a>
+		</p>
+		<div ID="keyboard" class="keyboard-holder"></div>
+		<script src='../keyboard.js'></script>
+	</body>
+</html>
