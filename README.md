@@ -1,4 +1,4 @@
-# myMusicStudio	fu
+# myMusicStudio
 web desktop simulation for instrument-frames most forked and extended at branches to demonstrate music theory in all bases,	
 And sound processing at all possible sources.	
 
