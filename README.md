@@ -1,6 +1,6 @@
 # myMusicStudio
 
-from that <a href="https://gultekinmg.github.io/myMusicStudio/"> through.... 
+**[from that ](https://gultekinmg.github.io/InHalerJS/)** | through.... 
 web desktop simulation for instrument-frames most forked and extended at branches to demonstrate music theory in all bases,	
 And sound processing at all possible sources.	
 ![scrshot](https://raw.githubusercontent.com/gultekinmg/myMusicStudio/master/img/theory.PNG)
